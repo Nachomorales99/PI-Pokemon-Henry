@@ -7,6 +7,12 @@ function typeModel(sequelize) {
 	sequelize.define(
 		'Type',
 		{
+			id: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				primaryKey: true,
+			},
+
 			name: {
 				type: DataTypes.STRING,
 				allowNull: false,

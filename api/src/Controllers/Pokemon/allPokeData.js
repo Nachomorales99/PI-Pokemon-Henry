@@ -6,11 +6,11 @@ let allPokeData = async () => {
 		let pokeApi = await getPokemonsByApi(`https://pokeapi.co/api/v2/pokemon`);
 		let pokeDb = await getPokemonsDb();
 
-		let allPokes = [...pokeApi, ...pokeDb];
+		let allPokes = pokeDb ? [...pokeApi, ...pokeDb] : pokeApi;
 
 		return allPokes;
 	} catch (error) {
-		return { error: error.message };
+		return { error: 'Error in allPokeData' };
 	}
 };
 

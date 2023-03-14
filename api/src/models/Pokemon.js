@@ -10,28 +10,19 @@ function pokemonModel(sequelize) {
 			id: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
-			},
-
-			pk: {
-				type: DataTypes.UUID,
-				allowNull: false,
-				defaultValue: DataTypes.UUIDV4,
 				primaryKey: true,
-			},
-
-			order: {
-				type: DataTypes.INTEGER,
-				allowNull: false,
 			},
 
 			name: {
 				type: DataTypes.STRING,
 				allowNull: false,
+				unique: true,
 			},
 
 			image: {
 				type: DataTypes.STRING,
 				allowNull: false,
+				defaultValue: 'https://images3.alphacoders.com/677/677583.png',
 			},
 
 			hp: {
@@ -72,13 +63,12 @@ function pokemonModel(sequelize) {
 				allowNull: false,
 			},
 
-			types: {
-				type: DataTypes.STRING,
-				allowNull: false,
-			},
+			// types: {
+			// 	type: DataTypes.STRING,
+			// 	allowNull: false,
+			// },
 			createdInDb: {
 				type: DataTypes.BOOLEAN,
-				allowNull: false,
 				defaultValue: true,
 			},
 		},

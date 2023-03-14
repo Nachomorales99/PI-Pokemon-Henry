@@ -19,12 +19,10 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const getPokemonsByApi = require('./src/Controllers/Pokemon/getPokemonsByApi');
 const pokemonsType = require('./src/Controllers/Type/pokemonsType');
 
 // Syncing all the models at once.
 conn.sync({ force: false }).then(async () => {
-	await getPokemonsByApi();
 	await pokemonsType();
 	server.listen(3001, () => {
 		console.log('%s listening at 3001'); // eslint-disable-line no-console

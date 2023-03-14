@@ -5,7 +5,7 @@ let getPokemonsDb = async () => {
 		let pokeDb = await Pokemon.findAll({
 			include: {
 				model: Type,
-				attributes: ['name'],
+				attributes: ['name', 'debility'],
 				through: {
 					types: [],
 				},
@@ -27,12 +27,17 @@ let getPokemonsDb = async () => {
 				special_defense: pokemon.special_defense,
 				speed: pokemon.speed,
 				image: pokemon.image,
-				types: pokemon.types.map((type) => type.name),
+				types: pokemon.Types.map((type) => type.name),
+				debility: pokemon.Types.reduce((acc, type) => {
+					return acc.concat(
+						type.debility.slice(1, type.debility.length - 1).split(','),
+					);
+				}, []),
 				createdInDb: pokemon.createdInDb,
 			};
 		});
 	} catch (error) {
-		return { error: error.message };
+		return { error: 'No pokemons availables on data base' };
 	}
 };
 

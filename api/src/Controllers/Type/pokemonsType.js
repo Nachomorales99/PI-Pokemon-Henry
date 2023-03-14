@@ -3,27 +3,33 @@ const axios = require('axios');
 
 let pokemonsType = async () => {
 	try {
-		let getTypes = await axios.get('https://pokeapi.co/api/v2/type');
+		let types = await Type.findAll({ attributes: ['id', 'name', 'debility'] });
 
-		let allTypes = getTypes.data.results;
+		if (!types.length) {
+			let getTypes = await axios.get('https://pokeapi.co/api/v2/type');
 
-		for (let type of allTypes) {
-			let url = await axios.get(type.url);
+			types = getTypes.data.results;
 
-			delete type.url;
+			for (let type of types) {
+				let url = await axios.get(type.url);
 
-			if (url.data.damage_relations.double_damage_from.length !== 0) {
-				type.debility = url.data.damage_relations.double_damage_from.map(
-					(el) => el.name,
-				);
+				delete type.url;
+
+				type.id = url.data.id;
+
+				if (url.data.damage_relations.double_damage_from.length !== 0) {
+					type.debility = url.data.damage_relations.double_damage_from.map(
+						(el) => el.name,
+					);
+				}
 			}
+
+			await Type.bulkCreate(types);
 		}
 
-		await Type.bulkCreate(allTypes);
-
-		return allTypes;
+		return types;
 	} catch (error) {
-		return { error: error.message };
+		return { error: 'No types available on Data Base' };
 	}
 };
 
