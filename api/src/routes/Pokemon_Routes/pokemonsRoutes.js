@@ -111,18 +111,3 @@ router.post('/', async (req, res) => {
 });
 
 module.exports = router;
-
-// {"name": "NachoMon",
-// 		"id": 1011,
-// 		"attack":20,
-// 		"hp":20,
-// 		"defense":20,
-// 		"speed":20,
-// 		"height":20,
-// 		"weight":20,
-// 		"types":["fire", "water"],
-// 		"special_attack":20,
-// 		"special_defense":20,
-// 		"abilities":["puño de acero"],
-// 		"image": "https://phantom-marca.unidadeditorial.es/dc79468057f14692f59da4112e3019db/resize/990/f/webp/assets/multimedia/imagenes/2022/06/01/16540932703790.png"
-// 	}

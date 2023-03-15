@@ -19,7 +19,6 @@ let getPokemonsDb = async () => {
 				height: pokemon.height,
 				weight: pokemon.weight,
 				abilities: pokemon.abilities,
-				order: pokemon.order,
 				hp: pokemon.hp,
 				attack: pokemon.attack,
 				defense: pokemon.defense,

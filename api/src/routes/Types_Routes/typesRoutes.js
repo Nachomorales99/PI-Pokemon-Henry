@@ -2,6 +2,8 @@ const { Router } = require('express');
 const router = Router();
 const pokemonsTypes = require('../../Controllers/Type/pokemonsType');
 
+// get types from db
+
 router.get('/', async (req, res) => {
 	try {
 		let allTypes = await pokemonsTypes();
