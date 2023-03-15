@@ -25,7 +25,7 @@ let pokemonsById = async (id) => {
 				id: id,
 				height: pokemon.height,
 				weight: pokemon.weight,
-				abilities: pokemon.abilities[0].ability.name,
+				abilities: pokemon.abilities.map((abl) => abl.ability.name),
 				hp: pokemon.stats[0].base_stat,
 				attack: pokemon.stats[1].base_stat,
 				defense: pokemon.stats[2].base_stat,
@@ -34,6 +34,30 @@ let pokemonsById = async (id) => {
 				speed: pokemon.stats[5].base_stat,
 				types: pokemon.types.map((el) => el.type.name),
 				image: pokemon.sprites.other['official-artwork'].front_default,
+
+				debility: await Promise.all(
+					pokemon.types.map(async (el) => {
+						let r = await axios.get(el.type.url);
+
+						delete el.type.url;
+						delete el.type.name;
+
+						if (r.data.damage_relations.double_damage_from.length !== 0) {
+							return r.data.damage_relations.double_damage_from.map(
+								(el) => el.name,
+							);
+						} else {
+							return ['No posee debilidades'];
+						}
+					}),
+				).then((allArrays) =>
+					allArrays
+						.flatMap((array) => array)
+						.reduce(
+							(acc, value) => (acc.includes(value) ? acc : [...acc, value]),
+							[],
+						),
+				),
 			};
 
 			return pokeId;

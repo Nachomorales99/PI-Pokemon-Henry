@@ -16,7 +16,7 @@ let getPokemonsByApi = async (url = `https://pokeapi.co/api/v2/pokemon`) => {
 			pokemon.id = url.data.id;
 			pokemon.height = url.data.height;
 			pokemon.weight = url.data.weight;
-			pokemon.abilities = url.data.abilities[0].ability.name;
+			pokemon.abilities = url.data.abilities.map((abl) => abl.ability.name);
 			pokemon.hp = url.data.stats[0].base_stat;
 			pokemon.attack = url.data.stats[1].base_stat;
 			pokemon.defense = url.data.stats[2].base_stat;
@@ -25,6 +25,29 @@ let getPokemonsByApi = async (url = `https://pokeapi.co/api/v2/pokemon`) => {
 			pokemon.speed = url.data.stats[5].base_stat;
 			pokemon.types = url.data.types.map((el) => el.type.name);
 			pokemon.image = url.data.sprites.other['official-artwork'].front_default;
+			pokemon.debility = await Promise.all(
+				url.data.types.map(async (el) => {
+					let r = await axios.get(el.type.url);
+
+					delete el.type.url;
+					delete el.type.name;
+
+					if (r.data.damage_relations.double_damage_from.length !== 0) {
+						return r.data.damage_relations.double_damage_from.map(
+							(el) => el.name,
+						);
+					} else {
+						return ['No posee debilidades'];
+					}
+				}),
+			).then((allArrays) =>
+				allArrays
+					.flatMap((array) => array)
+					.reduce(
+						(acc, value) => (acc.includes(value) ? acc : [...acc, value]),
+						[],
+					),
+			);
 		}
 
 		return allPokemons;
