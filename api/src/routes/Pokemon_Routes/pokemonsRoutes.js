@@ -40,7 +40,7 @@ router.get('/:id', async (req, res) => {
 	let { id } = req.params;
 
 	try {
-		let pokeId = await pokemonsById(Number(id));
+		let pokeId = await pokemonsById(id);
 
 		if (pokeId.error) throw new Error(pokeId.error);
 
@@ -55,7 +55,6 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 	let {
 		name,
-		id,
 		image,
 		hp,
 		attack,
@@ -72,7 +71,6 @@ router.post('/', async (req, res) => {
 	try {
 		if (
 			!name ||
-			!id ||
 			!hp ||
 			!attack ||
 			!defense ||
@@ -89,7 +87,6 @@ router.post('/', async (req, res) => {
 
 		let newPokemon = await createPokemon(
 			name,
-			id,
 			image,
 			hp,
 			attack,

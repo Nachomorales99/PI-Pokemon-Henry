@@ -1,11 +1,16 @@
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Landing from './Components/Landing/Landing';
+import Home from './Components/Home/Home';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Henry Pokemon</h1>
-    </div>
-  );
-}
+const App = () => {
+	return (
+		<>
+			<Routes>
+				<Route path="/" element={<Landing />} />
+				<Route path="/home" element={<Home />} />
+			</Routes>
+		</>
+	);
+};
 
 export default App;

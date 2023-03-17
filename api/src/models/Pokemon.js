@@ -8,7 +8,8 @@ function pokemonModel(sequelize) {
 		'Pokemon',
 		{
 			id: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
 				allowNull: false,
 				primaryKey: true,
 			},
@@ -62,11 +63,10 @@ function pokemonModel(sequelize) {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 			},
-
-			// types: {
-			// 	type: DataTypes.STRING,
-			// 	allowNull: false,
-			// },
+			abilities: {
+				type: DataTypes.ARRAY(DataTypes.STRING),
+				allowNull: false,
+			},
 			createdInDb: {
 				type: DataTypes.BOOLEAN,
 				defaultValue: true,

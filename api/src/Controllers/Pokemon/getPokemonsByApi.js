@@ -48,6 +48,7 @@ let getPokemonsByApi = async (url = `https://pokeapi.co/api/v2/pokemon`) => {
 						[],
 					),
 			);
+			pokemon.createdInDb = false;
 		}
 
 		return allPokemons;
