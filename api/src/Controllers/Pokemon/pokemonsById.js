@@ -1,9 +1,9 @@
 const { Pokemon, Type } = require('../../db');
 const axios = require('axios');
 
-let pokemonsById = async (id) => {
+let pokemonsById = async (id, source) => {
 	try {
-		if (typeof id !== 'number') {
+		if (source === 'db') {
 			let idDb = await Pokemon.findOne({
 				where: { id: id },
 				include: {

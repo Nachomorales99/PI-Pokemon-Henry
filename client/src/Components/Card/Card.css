@@ -1,0 +1,12 @@
+.card {
+	margin: 20px;
+	border: 1px solid pink;
+	border-radius: 10px;
+	width: fit-content;
+	height: fit-content;
+}
+
+.card img {
+	height: 100px;
+	width: 100px;
+}
