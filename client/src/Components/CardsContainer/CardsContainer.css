@@ -1,8 +1,0 @@
-.contain {
-	margin: 10px;
-	display: flex;
-	border: 1px solid black;
-	flex-wrap: wrap;
-	flex-direction: row;
-	gap: 1em;
-}

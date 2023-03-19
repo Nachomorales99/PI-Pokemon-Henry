@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ALL_POKEMONS } from './type';
+import { GET_ALL_POKEMONS, GET_POKEMON_DETAIL } from './type';
 
 export let get_all_pokemons = () => {
 	return async function (dispatch) {
@@ -8,6 +8,17 @@ export let get_all_pokemons = () => {
 		return dispatch({
 			type: GET_ALL_POKEMONS,
 			payload: pokemons.data,
+		});
+	};
+};
+
+export let get_pokemon_detail = (id) => {
+	return async function (dispatch) {
+		let pokemon = await axios.get(`http://localhost:3001/pokemons/${id}`);
+
+		return dispatch({
+			type: GET_POKEMON_DETAIL,
+			payload: pokemon.data,
 		});
 	};
 };
