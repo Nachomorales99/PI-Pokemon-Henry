@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ALL_POKEMONS, GET_POKEMON_DETAIL } from './type';
+import { GET_ALL_POKEMONS, GET_POKEMON_DETAIL, RESET_STATE } from './type';
 
 export let get_all_pokemons = () => {
 	return async function (dispatch) {
@@ -20,5 +20,11 @@ export let get_pokemon_detail = (id) => {
 			type: GET_POKEMON_DETAIL,
 			payload: pokemon.data,
 		});
+	};
+};
+
+export let resetState = () => {
+	return {
+		type: RESET_STATE,
 	};
 };

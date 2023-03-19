@@ -43,8 +43,13 @@ const Card = (props) => {
 			<Link to={`/detail/${props.id}`}>
 				<div id="card" style={styleCard(themeColor)}>
 					<p className="number">
-						<span>N°</span>
-						{props.id}
+						{props.id < 10
+							? `#000${props.id}`
+							: props.id < 100
+							? `#00${props.id}`
+							: props.id < 1000
+							? `#0${props.id}`
+							: `#${props.id}`}
 					</p>
 					<img src={props.image} alt="Pokemon" />
 					<h2 className="poke-name">
