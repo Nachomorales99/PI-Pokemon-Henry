@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Nav.css';
 
-import Filtros from '../Filtros/Filtros';
 import SearchBar from '../SearchBar/SearchBar';
 
 const Nav = () => {
@@ -21,7 +20,6 @@ const Nav = () => {
 				</div>
 
 				<SearchBar />
-				<Filtros />
 
 				<div className="links">
 					<NavLink className="route" to="/create">

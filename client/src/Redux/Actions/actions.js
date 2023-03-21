@@ -1,5 +1,13 @@
 import axios from 'axios';
-import { GET_ALL_POKEMONS, GET_POKEMON_DETAIL, RESET_STATE } from './type';
+import {
+	GET_ALL_POKEMONS,
+	GET_POKEMON_DETAIL,
+	RESET_STATE,
+	GET_ALL_TYPES,
+	HANDLER_TYPES,
+	HANDLER_ORIGIN,
+	ORDER,
+} from './type';
 
 export let get_all_pokemons = () => {
 	return async function (dispatch) {
@@ -9,6 +17,31 @@ export let get_all_pokemons = () => {
 			type: GET_ALL_POKEMONS,
 			payload: pokemons.data,
 		});
+	};
+};
+
+export let get_all_types = () => {
+	return async function (dispatch) {
+		let types = await axios.get('http://localhost:3001/types');
+
+		return dispatch({
+			type: GET_ALL_TYPES,
+			payload: types.data,
+		});
+	};
+};
+
+export let handler_types = (type) => {
+	return {
+		type: HANDLER_TYPES,
+		payload: type,
+	};
+};
+
+export let handler_origin = (origin) => {
+	return {
+		type: HANDLER_ORIGIN,
+		payload: origin,
 	};
 };
 
@@ -26,5 +59,12 @@ export let get_pokemon_detail = (id) => {
 export let resetState = () => {
 	return {
 		type: RESET_STATE,
+	};
+};
+
+export let order = (order) => {
+	return {
+		type: ORDER,
+		payload: order,
 	};
 };

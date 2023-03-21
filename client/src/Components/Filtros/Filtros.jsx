@@ -22,32 +22,7 @@ const Filtros = () => {
 					<option>Extras</option>
 				</select>
 			</div>
-			<div className="box">
-				<select>
-					<option selected disabled>
-						Choose Type
-					</option>
-					<option>All types</option>
-					<option>Normal</option>
-					<option>Fighting</option>
-					<option>Flying</option>
-					<option>Poison</option>
-					<option>Ground</option>
-					<option>Rock</option>
-					<option>Bug</option>
-					<option>Ghost</option>
-					<option>Steel</option>
-					<option>Fire</option>
-					<option>Water</option>
-					<option>Grass</option>
-					<option>Electric</option>
-					<option>Psychic</option>
-					<option>Ice</option>
-					<option>Dragon</option>
-					<option>Dark</option>
-					<option>Fairy</option>
-				</select>
-			</div>
+
 			<div className="box">
 				<select>
 					<option selected disabled>
