@@ -68,3 +68,10 @@ export let order = (order) => {
 		payload: order,
 	};
 };
+
+export let create_pokemon = (payload) => {
+	return async function () {
+		let create = await axios.post(`http://localhost:3001/pokemons`, payload);
+		return create;
+	};
+};

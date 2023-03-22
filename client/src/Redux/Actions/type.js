@@ -7,4 +7,3 @@ export const HANDLER_ORIGIN = 'HANDLER_ORIGIN';
 export const ORDER = 'ORDER';
 
 export const GET_NAME = 'GET_NAME';
-export const CREATE_POKEMON = 'CREATE_POKEMON';

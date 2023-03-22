@@ -27,7 +27,7 @@ let reducer = (state = initialState, action) => {
 		case GET_ALL_TYPES:
 			return {
 				...state,
-				type: action.payload,
+				types: action.payload,
 			};
 
 		case HANDLER_TYPES:
