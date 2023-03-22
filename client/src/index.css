@@ -5,3 +5,17 @@
 	text-decoration: none;
 	box-sizing: border-box;
 }
+
+body {
+	background: rgb(36, 55, 99);
+	background: linear-gradient(
+		135deg,
+		rgba(36, 55, 99, 1) 25%,
+		rgba(255, 110, 49, 1) 50%,
+		rgba(255, 235, 183, 1) 75%,
+		rgba(173, 142, 112, 1) 100%
+	);
+	background-size: 100% 100%;
+	height: 100vh;
+	background-attachment: fixed;
+}

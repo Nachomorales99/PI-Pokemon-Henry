@@ -62,7 +62,7 @@ const Form = () => {
 			input.special_defense.length
 		) {
 			let pokePost = {
-				name: input.name,
+				name: input.name.toLowerCase(),
 				attack: Number(input.attack),
 				hp: Number(input.hp),
 				defense: Number(input.defense),

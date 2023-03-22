@@ -1,9 +1,7 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Landing, Home, Detail, Form } from './Views/index';
 
 const App = () => {
-	let location = useLocation();
-
 	return (
 		<>
 			<Routes>
