@@ -1,7 +1,7 @@
-export function validation(input) {
+export default function validation(input) {
 	let errors = {};
-	let regexName = /^[A-Z][a-z]{3,10}$/;
-	let regexStats = /^[0-9_-]{1,2}$/;
+	let regexName = /^[a-zA-Z]{4,10}$/;
+	let regexStats = /^([1-9]|[1-9][0-9]|100)$/;
 
 	if (!input.name.trim()) {
 		errors.name = 'The field Name is required';
@@ -57,6 +57,10 @@ export function validation(input) {
 	} else if (!regexStats.test(input.special_defense.trim())) {
 		errors.special_defense =
 			'The Special Defense  field only accepts numbers from 0 to 100';
+	}
+
+	if (!input.types.length) {
+		errors.types = 'Types field is required';
 	}
 
 	return errors;

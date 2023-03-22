@@ -4,9 +4,11 @@ import {
 	GET_POKEMON_DETAIL,
 	RESET_STATE,
 	GET_ALL_TYPES,
+	GET_NAME,
 	HANDLER_TYPES,
 	HANDLER_ORIGIN,
 	ORDER,
+	EMPTY,
 } from './type';
 
 export let get_all_pokemons = () => {
@@ -56,6 +58,13 @@ export let get_pokemon_detail = (id) => {
 	};
 };
 
+export let getName = (name) => {
+	return {
+		type: GET_NAME,
+		payload: name,
+	};
+};
+
 export let resetState = () => {
 	return {
 		type: RESET_STATE,
@@ -73,5 +82,11 @@ export let create_pokemon = (payload) => {
 	return async function () {
 		let create = await axios.post(`http://localhost:3001/pokemons`, payload);
 		return create;
+	};
+};
+
+export let empty = () => {
+	return {
+		type: EMPTY,
 	};
 };

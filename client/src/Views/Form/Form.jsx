@@ -3,18 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
 	get_all_types,
 	create_pokemon,
-	get_all_pokemons,
-	resetState,
+	empty,
 } from '../../Redux/Actions/actions';
 // import { Link } from 'react-router-dom';
-import { validation } from '../../Components/Validations/Validations';
+import validation from '../../Components/Validations/Validations';
 import './Form.css';
 
 const Form = () => {
 	//HOOKS
 	let dispatch = useDispatch();
 	let allTypes = useSelector((state) => state.types);
-	let pokemons = useSelector((state) => state.pokemons); //Llamar al cache
+	let pokemons = useSelector((state) => state.pokemons);
 
 	//STATES
 	// let [response, setResponse] = useState(null);
@@ -32,19 +31,17 @@ const Form = () => {
 		special_defense: '',
 		image: '',
 		types: [],
-		abilities: [],
+		abilities: ['Defensa Ferrea', 'Ataque veloz'],
 	});
 	let [errors, setErrors] = useState({});
 
 	//EFFECTS
 	useEffect(() => {
 		dispatch(get_all_types());
-		dispatch(resetState(resetState));
-		dispatch(get_all_pokemons());
 	}, [dispatch]);
 
 	//FUNCTIONS
-	function handleSubmit(event) {
+	let handleSubmit = (event) => {
 		event.preventDefault();
 
 		let pokeNameExist = pokemons.find((el) => el.name === input.name);
@@ -62,29 +59,28 @@ const Form = () => {
 			input.weight.length &&
 			input.types.length &&
 			input.special_attack.length &&
-			input.special_defense.length &&
-			input.abilities.length
+			input.special_defense.length
 		) {
 			let pokePost = {
 				name: input.name,
-				attack: input.attack,
-				hp: input.hp,
-				defense: input.defense,
-				speed: input.speed,
-				height: input.height,
-				weight: input.weight,
-				special_attack: input.special_attack,
-				special_defense: input.special_defense,
+				attack: Number(input.attack),
+				hp: Number(input.hp),
+				defense: Number(input.defense),
+				speed: Number(input.speed),
+				height: Number(input.height),
+				weight: Number(input.weight),
+				special_attack: Number(input.special_attack),
+				special_defense: Number(input.special_defense),
 				image: input.image ? input.image : '',
 				types: input.types,
 				abilities: input.abilities,
 			};
 
+			console.log(pokePost);
+
 			dispatch(create_pokemon(pokePost));
 
-			// setResponse(true);
-
-			// setTimeout(() => setResponse(false), 4000);
+			alert('Pokemon successfully created');
 
 			setInput({
 				name: '',
@@ -98,27 +94,16 @@ const Form = () => {
 				special_defense: '',
 				image: '',
 				types: [],
-				abilities: [],
+				abilities: ['Defensa Ferrea', 'Ataque veloz'],
 			});
-		} else if (
-			!input.name.length &&
-			!input.hp.length &&
-			!input.attack.length &&
-			!input.defense.length &&
-			!input.height.length &&
-			!input.speed.length &&
-			!input.weight.length &&
-			!input.types.length &&
-			!input.special_attack.length &&
-			!input.special_defense.length &&
-			!input.abilities.length
-		) {
-			// setErr(true);
-			// setTimeout(() => setErr(false), 4000);
-		}
-	}
 
-	function handlerChange(event) {
+			dispatch(empty());
+		} else {
+			alert('Completa todo flaco');
+		}
+	};
+
+	let handlerChange = (event) => {
 		setInput({
 			...input,
 			[event.target.name]: event.target.value,
@@ -127,36 +112,34 @@ const Form = () => {
 		setErrors(
 			validation({ ...input, [event.target.name]: event.target.value }),
 		);
-	}
+	};
 
-	function handlerSelectTypes(event) {
+	let handlerSelectTypes = (event) => {
 		let { value } = event.target;
 
 		if (input.types.includes(value)) {
 			return alert("You've already selected that type");
 		}
 
-		if (input.types.length < 2) {
+		if (input.types.length < 3) {
 			setInput({
 				...input,
 				types: [...input.types, value],
 			});
 
-			setErrors(
-				validation({
-					...input,
-				}),
-			);
+			setErrors(validation({ ...input, types: [...input.types, value] }));
 		} else alert("You've reached the max amount of types");
-	}
+	};
 
-	function handlerDelete(event) {
+	let handlerDelete = (event) => {
 		event.preventDefault();
 		setInput({
 			...input,
 			types: input.types.filter((type) => type !== event.target.value),
 		});
-	}
+
+		setErrors(validation({ ...input, types: [...input.types] }));
+	};
 
 	return (
 		<>
@@ -164,7 +147,7 @@ const Form = () => {
 				<h1>Create Pokémon</h1>
 			</div>
 
-			<form onSubmit={resetState}>
+			<form onSubmit={(event) => handleSubmit(event)}>
 				<div>
 					<label>Name:</label>
 					<input
@@ -287,15 +270,13 @@ const Form = () => {
 				</div>
 
 				<div>
-					<label>Abilities</label>
-					<input type="text" />
-				</div>
-
-				<div>
 					<label kvalue="types6" name="types7">
 						Types:
 					</label>
 					<select onChange={(event) => handlerSelectTypes(event)}>
+						<option selected disabled>
+							Choose Types
+						</option>
 						{allTypes &&
 							allTypes
 								.sort((a, b) => (a.name > b.name ? 1 : -1))
@@ -325,7 +306,20 @@ const Form = () => {
 				</div>
 
 				<div>
-					<button type="submit" onClick={(event) => handleSubmit(event)}>
+					<button
+						type="submit"
+						disabled={
+							errors.name ||
+							errors.hp ||
+							errors.attack ||
+							errors.defense ||
+							errors.speed ||
+							errors.height ||
+							errors.weight ||
+							errors.types ||
+							!input.name
+						}
+					>
 						Create Pokémon
 					</button>
 				</div>

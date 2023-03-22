@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
 import Pagination from '../../Components/Pagination/Pagination';
-
+import Nav from '../../Components/Nav/Nav';
 import Card from '../../Components/Card/Card';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -10,11 +10,13 @@ import {
 	handler_origin,
 	order,
 } from '../../Redux/Actions/actions';
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
 	//HOOKS
 	let dispatch = useDispatch();
 	let usePoke = useSelector((state) => state.allPokemons);
+	let location = useLocation();
 
 	//STATES
 	let [currentPage, setCurrentPage] = useState(1);
@@ -74,6 +76,7 @@ const Home = () => {
 	return (
 		<>
 			<div className="home">
+				<Nav setCurrentPage={setCurrentPage} />
 				<div className="box">
 					<select
 						value={types}

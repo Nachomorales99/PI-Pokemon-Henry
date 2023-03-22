@@ -4,7 +4,7 @@ import './Nav.css';
 
 import SearchBar from '../SearchBar/SearchBar';
 
-const Nav = () => {
+const Nav = ({ setCurrentPage }) => {
 	return (
 		<>
 			<nav className="navbar">
@@ -19,7 +19,7 @@ const Nav = () => {
 					</div>
 				</div>
 
-				<SearchBar />
+				<SearchBar setCurrentPage={setCurrentPage} />
 
 				<div className="links">
 					<NavLink className="route" to="/create">

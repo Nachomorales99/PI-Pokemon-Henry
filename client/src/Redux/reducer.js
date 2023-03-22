@@ -3,9 +3,11 @@ import {
 	GET_POKEMON_DETAIL,
 	RESET_STATE,
 	GET_ALL_TYPES,
+	GET_NAME,
 	HANDLER_TYPES,
 	HANDLER_ORIGIN,
 	ORDER,
+	EMPTY,
 } from './Actions/type';
 
 const initialState = {
@@ -80,6 +82,19 @@ let reducer = (state = initialState, action) => {
 				allPokemons: newOrder,
 			};
 
+		case GET_NAME:
+			let name =
+				action.payload === ''
+					? state.pokemons
+					: state.allPokemons.filter((el) =>
+							el.name.toLowerCase().includes(action.payload.toLowerCase()),
+					  );
+
+			return {
+				...state,
+				allPokemons: name,
+			};
+
 		case GET_POKEMON_DETAIL:
 			return {
 				...state,
@@ -89,6 +104,15 @@ let reducer = (state = initialState, action) => {
 		case RESET_STATE:
 			return {
 				...state,
+				detail: {},
+			};
+
+		case EMPTY:
+			return {
+				...state,
+				allPokemons: [],
+				pokemons: [],
+				types: [],
 				detail: {},
 			};
 
