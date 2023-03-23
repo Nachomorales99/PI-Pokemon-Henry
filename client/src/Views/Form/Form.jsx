@@ -76,8 +76,6 @@ const Form = () => {
 				abilities: input.abilities,
 			};
 
-			console.log(pokePost);
-
 			dispatch(create_pokemon(pokePost));
 
 			alert('Pokemon successfully created');
