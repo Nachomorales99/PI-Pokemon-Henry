@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 const Card = (props) => {
 	const TypeColor = {
 		bug: '#26de81',
-		dragon: '#ffeaa7',
+		dragon: '#c5c3c2',
 		electric: '#fed330',
 		fairy: '#FF0069',
-		fighting: '#30336b',
+		fighting: '#b54',
 		fire: '#f0932b',
-		flying: '#81ecec',
+		flying: '#2eb3b3',
 		grass: '#00b894',
 		ground: '#EFB549',
 		ghost: '#a55eea',
@@ -20,6 +20,10 @@ const Card = (props) => {
 		psychic: '#a29bfe',
 		rock: '#2d3436',
 		water: '#0190FF',
+		steel: '#c5c3c2',
+		dark: '#120606',
+		unknown: '#FFFFFF',
+		shadow: '#6d6565',
 	};
 
 	let themeColor = TypeColor[props.types[0]];
