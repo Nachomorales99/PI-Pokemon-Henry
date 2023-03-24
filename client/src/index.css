@@ -5,3 +5,12 @@
 	text-decoration: none;
 	box-sizing: border-box;
 }
+
+body {
+	background: url('https://res.cloudinary.com/nacho-morales/image/upload/v1679607127/Pokemon%20App/608323_wbm4pa.png');
+	background-size: 100% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	height: 100vh;
+}

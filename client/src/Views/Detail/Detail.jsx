@@ -45,7 +45,7 @@ const Detail = () => {
 	//COLORS
 	const TypeColor = {
 		bug: '#26de81',
-		dragon: '#c5c3c2',
+		dragon: '#30385c',
 		electric: '#fed330',
 		fairy: '#FF0069',
 		fighting: '#b54',

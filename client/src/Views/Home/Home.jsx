@@ -3,6 +3,7 @@ import './Home.css';
 import Pagination from '../../Components/Pagination/Pagination';
 import Nav from '../../Components/Nav/Nav';
 import Card from '../../Components/Card/Card';
+import Loader from '../../Components/Loader/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	get_all_pokemons,
@@ -10,13 +11,11 @@ import {
 	handler_origin,
 	order,
 } from '../../Redux/Actions/actions';
-import { useLocation } from 'react-router-dom';
 
 const Home = () => {
 	//HOOKS
 	let dispatch = useDispatch();
 	let usePoke = useSelector((state) => state.allPokemons);
-	let location = useLocation();
 
 	//STATES
 	let [currentPage, setCurrentPage] = useState(1);
@@ -28,10 +27,15 @@ const Home = () => {
 	let [types, setTypes] = useState('all');
 	let [origin, setOrigin] = useState('all');
 	let [sort, setSort] = useState('ascendent');
+	let [charge, setCharge] = useState(false);
 
 	//EFFECTS
 	//when the component is assembled the pokemon is loaded
 	useEffect(() => {
+		setCharge(true);
+		setTimeout(() => {
+			setCharge(false);
+		}, 10000);
 		dispatch(get_all_pokemons());
 	}, [dispatch]);
 
@@ -73,9 +77,26 @@ const Home = () => {
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
 	};
 
+	// let reloadPokemon = (event) => {
+	// 	event.preventDefault();
+	// 	setTypes('all');
+	// 	setOrigin('all');
+	// 	setSort('ascendent');
+	// 	dispatch(get_all_pokemons());
+	// };
+
 	return (
 		<>
 			<Nav setCurrentPage={setCurrentPage} />
+			{/* <div>
+				<button
+					onClick={(event) => {
+						reloadPokemon(event);
+					}}
+				>
+					Reload Pokemons
+				</button>
+			</div> */}
 			<div className="box">
 				<select
 					value={types}
@@ -151,17 +172,25 @@ const Home = () => {
 				paginated={paginated}
 				currentPage={currentPage}
 			/>
+
 			<div className="contain">
-				{currentPokes.map((pokemon) => {
-					return (
-						<Card
-							id={pokemon.id}
-							name={pokemon.name}
-							types={pokemon.types}
-							image={pokemon.image}
-						/>
-					);
-				})}
+				{charge ? (
+					<div>
+						{' '}
+						<Loader />{' '}
+					</div>
+				) : (
+					currentPokes.map((pokemon) => {
+						return (
+							<Card
+								id={pokemon.id}
+								name={pokemon.name}
+								types={pokemon.types}
+								image={pokemon.image}
+							/>
+						);
+					})
+				)}
 			</div>
 		</>
 	);

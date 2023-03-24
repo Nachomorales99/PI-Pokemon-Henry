@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import {
 	get_all_types,
 	create_pokemon,
 	empty,
 } from '../../Redux/Actions/actions';
-// import { Link } from 'react-router-dom';
 import validation from '../../Components/Validations/Validations';
+import validationEmpty from '../../Components/Validations/ValidationEmpty';
 import './Form.css';
 
 const Form = () => {
@@ -14,6 +16,31 @@ const Form = () => {
 	let dispatch = useDispatch();
 	let allTypes = useSelector((state) => state.types);
 	let pokemons = useSelector((state) => state.pokemons);
+	let navigate = useNavigate();
+
+	//COLORS
+	const TypeColor = {
+		bug: '#26de81',
+		dragon: '#30385c',
+		electric: '#fed330',
+		fairy: '#FF0069',
+		fighting: '#b54',
+		fire: '#f0932b',
+		flying: '#2eb3b3',
+		grass: '#00b894',
+		ground: '#EFB549',
+		ghost: '#a55eea',
+		ice: '#74b9ff',
+		normal: '#95afc0',
+		poison: '#6c5ce7',
+		psychic: '#a29bfe',
+		rock: '#2d3436',
+		water: '#0190FF',
+		steel: '#c5c3c2',
+		dark: '#120606',
+		unknown: '#FFFFFF',
+		shadow: '#6d6565',
+	};
 
 	//STATES
 	// let [response, setResponse] = useState(null);
@@ -44,7 +71,9 @@ const Form = () => {
 	let handleSubmit = (event) => {
 		event.preventDefault();
 
-		let pokeNameExist = pokemons.find((el) => el.name === input.name);
+		let pokeNameExist = pokemons.find(
+			(el) => el.name === input.name.trim().toLocaleLowerCase(),
+		);
 		if (pokeNameExist) {
 			return alert('There is a pokémon with that name, try another');
 		}
@@ -59,7 +88,8 @@ const Form = () => {
 			input.weight.length &&
 			input.types.length &&
 			input.special_attack.length &&
-			input.special_defense.length
+			input.special_defense.length &&
+			input.types.length
 		) {
 			let pokePost = {
 				name: input.name.toLowerCase(),
@@ -97,7 +127,7 @@ const Form = () => {
 
 			dispatch(empty());
 		} else {
-			alert('Completa todo flaco');
+			setErrors(validationEmpty({ ...input }));
 		}
 	};
 
@@ -119,13 +149,11 @@ const Form = () => {
 			return alert("You've already selected that type");
 		}
 
-		if (input.types.length < 3) {
+		if (input.types.length < 2) {
 			setInput({
 				...input,
 				types: [...input.types, value],
 			});
-
-			setErrors(validation({ ...input, types: [...input.types, value] }));
 		} else alert("You've reached the max amount of types");
 	};
 
@@ -141,248 +169,202 @@ const Form = () => {
 
 	return (
 		<>
-			<div>
-				<h1>Create Pokémon</h1>
+			<div className="bg">
+				<div class="login-box">
+					<h2>Pokemon Lab</h2>
+					<form onSubmit={(event) => handleSubmit(event)}>
+						<div className="principalcolum">
+							<div className="colum1">
+								<div class="input-box">
+									<input
+										type="text"
+										name="name"
+										placeholder="Pokemon name"
+										value={input.name}
+										onChange={(event) => handlerChange(event)}
+									/>
+									<label>Name</label>
+									<span className="errorAlert">{errors.name}</span>
+								</div>
+								<div class="input-box">
+									<input
+										type="number"
+										name="attack"
+										placeholder="Attack level"
+										value={input.attack}
+										onChange={(event) => handlerChange(event)}
+									/>
+									<label>Attack</label>
+									<span className="errorAlert">{errors.attack}</span>
+								</div>
+								<div class="input-box">
+									<input
+										type="number"
+										name="defense"
+										placeholder="Defense level"
+										value={input.defense}
+										onChange={(event) => handlerChange(event)}
+									/>
+									<label>Defense</label>
+									<span className="errorAlert">{errors.defense}</span>
+								</div>
+								<div class="input-box">
+									<input
+										type="number"
+										name="speed"
+										placeholder="Speed level"
+										value={input.speed}
+										onChange={(event) => handlerChange(event)}
+									/>
+									<label>Speed</label>
+									<span className="errorAlert">{errors.speed}</span>
+								</div>
+								<div class="input-box">
+									<input
+										type="number"
+										name="height"
+										placeholder="Height"
+										value={input.height}
+										onChange={(event) => handlerChange(event)}
+									/>
+									<label>Height</label>
+									<span className="errorAlert">{errors.height}</span>
+								</div>
+							</div>
+
+							<div className="colum2">
+								<div class="input-box">
+									<input
+										type="number"
+										name="weight"
+										placeholder="Weight"
+										value={input.weight}
+										onChange={(event) => handlerChange(event)}
+									/>
+									<label>Weight</label>
+									<span className="errorAlert">{errors.weight}</span>
+								</div>
+								<div class="input-box">
+									<input
+										type="number"
+										name="special_attack"
+										placeholder="Special attack level"
+										value={input.special_attack}
+										onChange={(event) => handlerChange(event)}
+									/>
+									<label>Special Attacks</label>
+									<span className="errorAlert">{errors.special_attack}</span>
+								</div>
+								<div class="input-box">
+									<input
+										type="number"
+										name="special_defense"
+										placeholder="Special Defense level"
+										value={input.special_defense}
+										onChange={(event) => handlerChange(event)}
+									/>
+									<label>Special Defense</label>
+									<span className="errorAlert">{errors.special_defense}</span>
+								</div>
+								<div class="input-box">
+									<input
+										type="number"
+										name="hp"
+										placeholder="HP Level"
+										value={input.hp}
+										onChange={(event) => handlerChange(event)}
+									/>
+									<label>HP</label>
+									<span className="errorAlert">{errors.hp}</span>
+								</div>
+								<div class="input-box">
+									<input
+										name="image"
+										placeholder="Url"
+										value={input.image}
+										onChange={(event) => handlerChange(event)}
+									/>
+									<label>Image</label>
+									<span className="errorAlert">{errors.image}</span>
+								</div>
+							</div>
+						</div>
+
+						<div className="selectType">
+							<label kvalue="types6" name="types7">
+								Types
+							</label>
+							<select
+								className="selectTypeForm"
+								value={allTypes}
+								onChange={(event) => handlerSelectTypes(event)}
+							>
+								<option className="optionTypeForm" value="">
+									Choose Types
+								</option>
+								{allTypes &&
+									allTypes
+										.sort((a, b) => (a.name > b.name ? 1 : -1))
+										.map((el, index) => (
+											<option
+												className="optionTypeForm"
+												key={index}
+												value={el.name}
+											>
+												{el.name[0].toUpperCase() + el.name.slice(1)}
+											</option>
+										))}
+							</select>
+
+							<div className="choosetypes">
+								{!input.types.length ? (
+									<span className="errorAlert">{errors.types}</span>
+								) : (
+									input.types.map((value, index) => {
+										return (
+											<div key={index} className="type">
+												<button
+													className="delete"
+													onClick={handlerDelete}
+													value={value}
+													style={{ backgroundColor: TypeColor[value] }}
+												>
+													X
+												</button>
+												<span
+													className="textType"
+													style={{ backgroundColor: TypeColor[value] }}
+												>
+													{value[0].toUpperCase() + value.slice(1)}
+												</span>
+											</div>
+										);
+									})
+								)}
+							</div>
+						</div>
+
+						<div className="buttoms">
+							<button id="button" type="submit">
+								<span></span>
+								<span></span>
+								<span></span>
+								<span></span>
+								Create Pokemon
+							</button>
+							<button id="button" onClick={() => navigate('/home')}>
+								<span></span>
+								<span></span>
+								<span></span>
+								<span></span>
+								Back to home
+							</button>
+						</div>
+					</form>
+				</div>
 			</div>
-
-			<form onSubmit={(event) => handleSubmit(event)}>
-				<div>
-					<label>Name:</label>
-					<input
-						type="text"
-						name="name"
-						placeholder="Pokemon name"
-						value={input.name}
-						onChange={(event) => handlerChange(event)}
-					/>
-
-					<strong>{errors.name}</strong>
-				</div>
-
-				<div>
-					<label>Attack</label>
-					<input
-						type="number"
-						name="attack"
-						placeholder="Attack level"
-						value={input.attack}
-						onChange={(event) => handlerChange(event)}
-					/>
-
-					<strong>{errors.attack}</strong>
-				</div>
-
-				<div>
-					<label>Defense</label>
-					<input
-						type="number"
-						name="defense"
-						placeholder="Defense level"
-						value={input.defense}
-						onChange={(event) => handlerChange(event)}
-					/>
-
-					<strong>{errors.defense}</strong>
-				</div>
-
-				<div>
-					<label>Speed</label>
-					<input
-						type="number"
-						name="speed"
-						placeholder="Speed level"
-						value={input.speed}
-						onChange={(event) => handlerChange(event)}
-					/>
-					<strong>{errors.speed}</strong>
-				</div>
-
-				<div>
-					<label>Height</label>
-					<input
-						type="number"
-						name="height"
-						placeholder="Height"
-						value={input.height}
-						onChange={(event) => handlerChange(event)}
-					/>
-					<strong>{errors.height}</strong>
-				</div>
-
-				<div>
-					<label>Weight</label>
-					<input
-						type="number"
-						name="weight"
-						placeholder="Weight"
-						value={input.weight}
-						onChange={(event) => handlerChange(event)}
-					/>
-					<strong>{errors.weight}</strong>
-				</div>
-
-				<div>
-					<label>Special Attack</label>
-					<input
-						type="number"
-						name="special_attack"
-						placeholder="Special attack level"
-						value={input.special_attack}
-						onChange={(event) => handlerChange(event)}
-					/>
-					<strong>{errors.special_attack}</strong>
-				</div>
-
-				<div>
-					<label>Special Defense</label>
-					<input
-						type="number"
-						name="special_defense"
-						placeholder="Special Defense level"
-						value={input.special_defense}
-						onChange={(event) => handlerChange(event)}
-					/>
-					<strong>{errors.special_defense}</strong>
-				</div>
-
-				<div>
-					<label>HP</label>
-					<input
-						type="number"
-						name="hp"
-						placeholder="HP Level"
-						value={input.hp}
-						onChange={(event) => handlerChange(event)}
-					/>
-					<strong>{errors.hp}</strong>
-				</div>
-
-				<div>
-					<label>Image</label>
-					<input
-						name="image"
-						placeholder="Url"
-						value={input.image}
-						onChange={(event) => handlerChange(event)}
-					/>
-				</div>
-
-				<div>
-					<label kvalue="types6" name="types7">
-						Types:
-					</label>
-					<select onChange={(event) => handlerSelectTypes(event)}>
-						<option selected disabled>
-							Choose Types
-						</option>
-						{allTypes &&
-							allTypes
-								.sort((a, b) => (a.name > b.name ? 1 : -1))
-								.map((el, index) => (
-									<option key={index} value={el.name}>
-										{el.name.toUpperCase()}
-									</option>
-								))}
-					</select>
-
-					<div>
-						{!input.types.length ? (
-							<strong>{errors.types}</strong>
-						) : (
-							input.types.map((value, index) => {
-								return (
-									<div key={index}>
-										<button onClick={handlerDelete} value={value}>
-											X
-										</button>
-										<span>{value.toUpperCase()}</span>
-									</div>
-								);
-							})
-						)}
-					</div>
-				</div>
-
-				<div>
-					<button
-						type="submit"
-						disabled={
-							errors.name ||
-							errors.hp ||
-							errors.attack ||
-							errors.defense ||
-							errors.speed ||
-							errors.height ||
-							errors.weight ||
-							errors.types ||
-							!input.name
-						}
-					>
-						Create Pokémon
-					</button>
-				</div>
-			</form>
 		</>
 	);
 };
 
 export default Form;
-
-{
-	/* <div className="overlay">
-	<form>
-		<div className="con">
-			<header className="head-form">
-				<h2>Log In</h2>
-
-				<p>login here using your username and password</p>
-			</header>
-
-			<br />
-			<div className="field-set">
-				<span className="input-item">
-					<i className="fa fa-user-circle" />
-				</span>
-
-				<input
-					className="form-input"
-					id="txt-input"
-					type="text"
-					placeholder="@UserName"
-					required
-				/>
-				<br />
-
-				<span className="input-item">
-					<i className="fa fa-key" />
-				</span>
-
-				<input
-					className="form-input"
-					type="password"
-					placeholder="Password"
-					id="pwd"
-					name="password"
-					required
-				/>
-
-				<span>
-					<i className="fa fa-eye" aria-hidden="true" type="button" id="eye" />
-				</span>
-				<br />
-
-				<button className="log-in"> Log In </button>
-			</div>
-
-			<div className="other">
-				<button className="btn submits frgt-pass">Forgot Password</button>
-
-				<button className="btn submits sign-up">
-					Sign Up
-					<i className="fa fa-user-plus" aria-hidden="true" />
-				</button>
-			</div>
-		</div>
-	</form>
-</div>; */
-}
