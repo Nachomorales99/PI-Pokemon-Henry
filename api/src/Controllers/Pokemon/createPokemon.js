@@ -30,7 +30,9 @@ let createPokemon = async (
 			special_attack: special_attack,
 			special_defense: special_defense,
 			speed: speed,
-			image: image ? image : 'https://images3.alphacoders.com/677/677583.png',
+			image: image
+				? image
+				: 'https://res.cloudinary.com/nacho-morales/image/upload/v1679777574/Pokemon%20App/Default_img_fjt3qd.png',
 			abilities: abilities,
 		});
 

@@ -12,7 +12,7 @@ const Nav = ({ setCurrentPage }) => {
 					<div className="nav-title">
 						<NavLink to="/home">
 							<img
-								src="https://res.cloudinary.com/nacho-morales/image/upload/v1678940016/Pokemon%20App/65b08dfbffa956edd0a3649c89881012_g3ztnx.png"
+								src="https://res.cloudinary.com/nacho-morales/image/upload/v1679763018/Pokemon%20App/Icon_yzrpe5.png"
 								alt=""
 							/>
 						</NavLink>

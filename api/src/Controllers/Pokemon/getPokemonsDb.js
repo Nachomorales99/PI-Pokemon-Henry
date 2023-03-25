@@ -14,7 +14,7 @@ let getPokemonsDb = async () => {
 
 		return pokeDb.map((pokemon) => {
 			return {
-				id: pokemon.id,
+				id: pokemon.id.length + Math.floor(Math.random() * 1000) + 1011,
 				name: pokemon.name,
 				height: pokemon.height,
 				weight: pokemon.weight,

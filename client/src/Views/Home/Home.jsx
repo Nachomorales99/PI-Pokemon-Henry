@@ -6,7 +6,6 @@ import Card from '../../Components/Card/Card';
 import Loader from '../../Components/Loader/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-	get_all_pokemons,
 	handler_types,
 	handler_origin,
 	order,
@@ -27,16 +26,14 @@ const Home = () => {
 	let [types, setTypes] = useState('all');
 	let [origin, setOrigin] = useState('all');
 	let [sort, setSort] = useState('ascendent');
-	let [charge, setCharge] = useState(false);
+	let [charge, setCharge] = useState(true);
 
 	//EFFECTS
 	//when the component is assembled the pokemon is loaded
 	useEffect(() => {
-		setCharge(true);
 		setTimeout(() => {
 			setCharge(false);
-		}, 10000);
-		dispatch(get_all_pokemons());
+		}, 11000);
 	}, [dispatch]);
 
 	useEffect(() => {
@@ -97,89 +94,96 @@ const Home = () => {
 					Reload Pokemons
 				</button>
 			</div> */}
-			<div className="box">
-				<select
-					value={types}
-					onChange={(event) => {
-						handlerFilterType(event);
-					}}
-				>
-					<option selected disabled>
-						Choose Type
-					</option>
-					<option value="all">All Types</option>
-					<option value="normal">Normal</option>
-					<option value="fighting">Fighting</option>
-					<option value="flying">Flying</option>
-					<option value="poison">Poison</option>
-					<option value="ground">Ground</option>
-					<option value="rock">Rock</option>
-					<option value="bug">Bug</option>
-					<option value="ghost">Ghost</option>
-					<option value="steel">Steel</option>
-					<option value="fire">Fire</option>
-					<option value="water">Water</option>
-					<option value="grass">Grass</option>
-					<option value="electric">Electric</option>
-					<option value="psychic">Psychic</option>
-					<option value="ice">Ice</option>
-					<option value="dragon">Dragon</option>
-					<option value="dark">Dark</option>
-					<option value="fairy">Fairy</option>
-					<option value="shadow">Shadow</option>
-					<option value="unknown">Unknown</option>
-				</select>
+			<div className="filters">
+				<div className="box">
+					<select
+						className="selectTypes"
+						value={types}
+						onChange={(event) => {
+							handlerFilterType(event);
+						}}
+					>
+						<option selected disabled>
+							Choose Type
+						</option>
+						<option value="all">All Types</option>
+						<option value="normal">Normal</option>
+						<option value="fighting">Fighting</option>
+						<option value="flying">Flying</option>
+						<option value="poison">Poison</option>
+						<option value="ground">Ground</option>
+						<option value="rock">Rock</option>
+						<option value="bug">Bug</option>
+						<option value="ghost">Ghost</option>
+						<option value="steel">Steel</option>
+						<option value="fire">Fire</option>
+						<option value="water">Water</option>
+						<option value="grass">Grass</option>
+						<option value="electric">Electric</option>
+						<option value="psychic">Psychic</option>
+						<option value="ice">Ice</option>
+						<option value="dragon">Dragon</option>
+						<option value="dark">Dark</option>
+						<option value="fairy">Fairy</option>
+						<option value="shadow">Shadow</option>
+						<option value="unknown">Unknown</option>
+					</select>
+				</div>
+
+				<div className="box">
+					<select
+						className="selectTypes"
+						value={origin}
+						onChange={(event) => {
+							handleOrigin(event);
+						}}
+					>
+						<option selected disabled>
+							Choose Origin
+						</option>
+						<option value="all">All Pokemons</option>
+						<option value="db">My Pokemons</option>
+					</select>
+				</div>
+
+				<div className="box">
+					<select
+						className="selectTypes"
+						value={sort}
+						onChange={(event) => {
+							handleOrder(event);
+						}}
+					>
+						<option selected disabled>
+							Choose Order
+						</option>
+						<option value="ascendent">Ascendent</option>
+						<option value="descendant">Descendant</option>
+						<option value="a_z">A - Z</option>
+						<option value="z_a">Z - A</option>
+						<option value="major_attack">Increased attack</option>
+						<option value="minor_attack">Decreased attack</option>
+					</select>
+				</div>
 			</div>
 
-			<div className="box">
-				<select
-					value={origin}
-					onChange={(event) => {
-						handleOrigin(event);
-					}}
-				>
-					<option selected disabled>
-						Choose Origin
-					</option>
-					<option value="all">All Pokemons</option>
-					<option value="db">My Pokemons</option>
-					<option value="api">Api</option>
-				</select>
-			</div>
-
-			<div className="box">
-				<select
-					value={sort}
-					onChange={(event) => {
-						handleOrder(event);
-					}}
-				>
-					<option selected disabled>
-						Choose Order
-					</option>
-					<option value="ascendent">Ascendent</option>
-					<option value="descendant">Descendant</option>
-					<option value="a_z">A - Z</option>
-					<option value="z_a">Z - A</option>
-					<option value="major_attack">Increased attack</option>
-					<option value="minor_attack">Decreased attack</option>
-				</select>
-			</div>
-
-			<Pagination
-				pokesPerPage={pokesPerPage}
-				usePoke={usePoke?.length}
-				paginated={paginated}
-				currentPage={currentPage}
-			/>
+			{charge && !currentPokes.length ? (
+				''
+			) : (
+				<Pagination
+					pokesPerPage={pokesPerPage}
+					usePoke={usePoke?.length}
+					paginated={paginated}
+					currentPage={currentPage}
+				/>
+			)}
 
 			<div className="contain">
-				{charge ? (
+				{charge && !currentPokes.length ? (
 					<div>
-						{' '}
-						<Loader />{' '}
+						<Loader />
 					</div>
-				) : (
+				) : currentPokes.length ? (
 					currentPokes.map((pokemon) => {
 						return (
 							<Card
@@ -190,6 +194,17 @@ const Home = () => {
 							/>
 						);
 					})
+				) : (
+					<div className="notfound">
+						<h2 className="notfoundTitle">Ups! Pokémon not found</h2>
+						<img
+							src="https://res.cloudinary.com/nacho-morales/image/upload/v1679760646/Pokemon%20App/Pikachu_no_found_ofvyzw.png"
+							alt=""
+						/>
+						<h2 className="notfoundTitle">
+							Try creating it on "Create Pokemon"
+						</h2>
+					</div>
 				)}
 			</div>
 		</>

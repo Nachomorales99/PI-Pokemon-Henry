@@ -5,3 +5,56 @@
 	gap: 1em;
 	justify-content: center;
 }
+
+.filters {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.selectTypes {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 0;
+	outline: 0;
+	font: inherit;
+	border-radius: 5px;
+	font-size: 20px;
+
+	width: 12em;
+	height: 1.4em;
+	padding: 0 4em 0 1em;
+	background: url('https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg')
+			no-repeat right 0.8em center/1.4em,
+		linear-gradient(to left, rgba(36, 55, 99, 1) 3em, rgba(36, 55, 99, 1) 3em);
+	color: white;
+	cursor: pointer;
+}
+.selectTypes option {
+	color: inherit;
+	background-color: rgba(36, 55, 99, 1);
+}
+.selectTypes:focus {
+	outline: none;
+}
+.selectTypes::-ms-expand {
+	display: none;
+}
+
+.notfound {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.notfoundTitle {
+	font-size: 2.5rem;
+}
+
+.notfound img {
+	width: 440px;
+	height: 520px;
+}

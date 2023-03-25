@@ -43,9 +43,6 @@ const Form = () => {
 	};
 
 	//STATES
-	// let [response, setResponse] = useState(null);
-	// let [loading, setLoading] = useState(false);
-	// let [err, setErr] = useState(false);
 	let [input, setInput] = useState({
 		name: '',
 		hp: '',

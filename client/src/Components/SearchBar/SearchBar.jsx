@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { get_all_pokemons, getName } from '../../Redux/Actions/actions';
+import { getName } from '../../Redux/Actions/actions';
 import './SearchBar.css';
 
 const SearchBar = ({ setCurrentPage }) => {
@@ -9,12 +9,6 @@ const SearchBar = ({ setCurrentPage }) => {
 
 	//STATES
 	let [name, setName] = useState('');
-
-	//EFFECTS
-
-	useEffect(() => {
-		dispatch(get_all_pokemons());
-	}, [dispatch]);
 
 	//FUNCTION
 
@@ -25,17 +19,18 @@ const SearchBar = ({ setCurrentPage }) => {
 
 	return (
 		<>
-			<div>
+			<div class="container">
 				<input
 					type="text"
-					placeholder="Search name"
+					placeholder="Search..."
 					value={name}
 					onChange={(event) => {
 						setName(event.target.value);
 						handleInputChange(event.target.value);
 					}}
-				></input>
-				<button type="button">Search</button>
+					id="searchBar"
+					className="searchbar"
+				/>
 			</div>
 		</>
 	);

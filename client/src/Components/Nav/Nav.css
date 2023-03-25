@@ -13,6 +13,11 @@
 	align-items: center;
 }
 
+.nav-title img {
+	width: 130px;
+	height: 45px;
+}
+
 .hamburgerMenu {
 	display: none;
 }

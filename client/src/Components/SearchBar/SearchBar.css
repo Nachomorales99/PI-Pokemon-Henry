@@ -1,0 +1,37 @@
+.container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.searchbar {
+	float: right;
+	background-color: transparent;
+	color: white;
+	padding: 6px 10px;
+	width: 250px;
+	border: none;
+	margin-top: 1px;
+	margin-right: 8px;
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 1em;
+	font-weight: bold;
+	border-bottom: white solid 2px;
+	transition: 0.3s;
+}
+
+.searchbar::placeholder {
+	color: white;
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.searchbar:focus {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 1em;
+	font-weight: bold;
+	border-bottom: white solid 2px;
+	outline: none;
+}

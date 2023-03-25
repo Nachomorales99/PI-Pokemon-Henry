@@ -51,9 +51,6 @@ let reducer = (state = initialState, action) => {
 			if (origin === 'db')
 				copyPokemons = copyPokemons.filter((el) => el.createdInDb === true);
 
-			if (origin === 'api')
-				copyPokemons = copyPokemons.filter((el) => el.createdInDb === false);
-
 			return {
 				...state,
 				allPokemons: copyPokemons,

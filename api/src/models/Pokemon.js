@@ -23,7 +23,8 @@ function pokemonModel(sequelize) {
 			image: {
 				type: DataTypes.STRING,
 				allowNull: false,
-				defaultValue: 'https://images3.alphacoders.com/677/677583.png',
+				defaultValue:
+					'https://res.cloudinary.com/nacho-morales/image/upload/v1679777574/Pokemon%20App/Default_img_fjt3qd.png',
 			},
 
 			hp: {
