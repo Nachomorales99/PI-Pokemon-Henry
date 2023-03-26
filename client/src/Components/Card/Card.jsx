@@ -47,7 +47,15 @@ const Card = (props) => {
 			<Link to={`/detail/${props.id}`}>
 				<div id="card" style={styleCard(themeColor)}>
 					<p className="number">
-						{props.id < 10
+						{props.id2
+							? props.id2 < 10
+								? `#000${props.id2}`
+								: props.id2 < 100
+								? `#00${props.id2}`
+								: props.id2 < 1000
+								? `#0${props.id2}`
+								: `#${props.id2}`
+							: props.id < 10
 							? `#000${props.id}`
 							: props.id < 100
 							? `#00${props.id}`

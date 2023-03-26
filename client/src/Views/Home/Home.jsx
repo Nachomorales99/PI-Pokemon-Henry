@@ -37,6 +37,12 @@ const Home = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
+		setTypes('all');
+		setOrigin('all');
+		setSort('all');
+	}, []);
+
+	useEffect(() => {
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
 	}, [usePoke, range.firts, range.last]);
 
@@ -185,14 +191,28 @@ const Home = () => {
 					</div>
 				) : currentPokes.length ? (
 					currentPokes.map((pokemon) => {
-						return (
-							<Card
-								id={pokemon.id}
-								name={pokemon.name}
-								types={pokemon.types}
-								image={pokemon.image}
-							/>
-						);
+						if (pokemon.createdInDb) {
+							return (
+								<Card
+									id={pokemon.id}
+									id2={
+										pokemon.id.length + Math.floor(Math.random() * 1000) + 1011
+									}
+									name={pokemon.name}
+									types={pokemon.types}
+									image={pokemon.image}
+								/>
+							);
+						} else {
+							return (
+								<Card
+									id={pokemon.id}
+									name={pokemon.name}
+									types={pokemon.types}
+									image={pokemon.image}
+								/>
+							);
+						}
 					})
 				) : (
 					<div className="notfound">
