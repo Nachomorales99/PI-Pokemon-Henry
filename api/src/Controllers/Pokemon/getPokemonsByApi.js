@@ -13,6 +13,7 @@ let getPokemonsByApi = async (url = `https://pokeapi.co/api/v2/pokemon`) => {
 			delete pokemon.url;
 
 			pokemon.id = url.data.id;
+			pokemon.id2 = url.data.id;
 			pokemon.height = url.data.height;
 			pokemon.weight = url.data.weight;
 			pokemon.abilities = url.data.abilities.map((abl) => abl.ability.name);

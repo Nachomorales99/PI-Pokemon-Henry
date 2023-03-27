@@ -333,3 +333,10 @@
 		clip-path: polygon(0 16%, 100% 16%, 100% 80%, 0% 90%);
 	}
 }
+
+.loader {
+	background-color: var(--blue);
+	position: absolute;
+	inset: 0;
+	clip-path: polygon(100% 0, 56.5% 0, 40% 100%, 100% 100%);
+}

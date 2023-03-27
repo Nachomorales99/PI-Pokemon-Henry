@@ -21,8 +21,7 @@ const Card = (props) => {
 		rock: '#2d3436',
 		water: '#0190FF',
 		steel: '#c5c3c2',
-		dark: '#120606',
-		unknown: '#FFFFFF',
+		dark: '#383838',
 		shadow: '#6d6565',
 	};
 
@@ -47,21 +46,13 @@ const Card = (props) => {
 			<Link to={`/detail/${props.id}`}>
 				<div id="card" style={styleCard(themeColor)}>
 					<p className="number">
-						{props.id2
-							? props.id2 < 10
-								? `#000${props.id2}`
-								: props.id2 < 100
-								? `#00${props.id2}`
-								: props.id2 < 1000
-								? `#0${props.id2}`
-								: `#${props.id2}`
-							: props.id < 10
-							? `#000${props.id}`
-							: props.id < 100
-							? `#00${props.id}`
-							: props.id < 1000
-							? `#0${props.id}`
-							: `#${props.id}`}
+						{props.id2 < 10
+							? `#000${props.id2}`
+							: props.id2 < 100
+							? `#00${props.id2}`
+							: props.id2 < 1000
+							? `#0${props.id2}`
+							: `#${props.id2}`}
 					</p>
 					<img src={props.image} alt="Pokemon" />
 					<h2 className="poke-name">

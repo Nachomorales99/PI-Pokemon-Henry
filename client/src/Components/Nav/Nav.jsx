@@ -8,6 +8,11 @@ const Nav = ({ setCurrentPage }) => {
 	return (
 		<>
 			<nav className="navbar">
+				<div className="links">
+					<NavLink className="route" to="/">
+						Exit
+					</NavLink>
+				</div>
 				<div>
 					<div className="nav-title">
 						<NavLink to="/home">

@@ -18,6 +18,7 @@ let pokemonsById = async (id, source) => {
 			if (idDb) {
 				return {
 					id: idDb.id,
+					id2: idDb.id2,
 					name: idDb.name,
 					height: idDb.height,
 					weight: idDb.weight,
@@ -46,6 +47,7 @@ let pokemonsById = async (id, source) => {
 				let pokeId = {
 					name: pokemon.name,
 					id: id,
+					id2: id,
 					height: pokemon.height,
 					weight: pokemon.weight,
 					abilities: pokemon.abilities.map((abl) => abl.ability.name),

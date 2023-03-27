@@ -56,6 +56,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
 	let {
+		id2,
 		name,
 		image,
 		hp,
@@ -88,6 +89,7 @@ router.post('/', async (req, res) => {
 		}
 
 		let newPokemon = await createPokemon(
+			id2,
 			name,
 			image,
 			hp,

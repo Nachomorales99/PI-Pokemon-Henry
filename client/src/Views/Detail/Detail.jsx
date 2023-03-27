@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_pokemon_detail, resetState } from '../../Redux/Actions/actions';
+import Loader from '../../Components/Loader/Loader';
 import './Detail.css';
 
 const Detail = () => {
@@ -11,15 +12,22 @@ const Detail = () => {
 	let dispatch = useDispatch();
 	let pokemon = useSelector((state) => state.detail);
 
+	//STATE
+	let [loading, setLoading] = useState(false);
+
 	//EFFECTS
 	useEffect(() => {
+		setLoading(true);
+
+		setTimeout(() => {
+			setLoading(false);
+		}, 500);
+
 		dispatch(get_pokemon_detail(id));
 		return () => {
 			dispatch(resetState());
 		};
 	}, [dispatch, id]);
-
-	console.log(pokemon);
 
 	//FUNCTIONS
 	const capitalizeFirstLetter = (name) => {
@@ -61,8 +69,7 @@ const Detail = () => {
 		rock: '#2d3436',
 		water: '#0190FF',
 		steel: '#c5c3c2',
-		dark: '#120606',
-		unknown: '#FFFFFF',
+		dark: '#383838',
 		shadow: '#6d6565',
 	};
 
@@ -78,6 +85,17 @@ const Detail = () => {
 	};
 
 	const appendDebilities = (debility) => {
+		if (pokemon.types?.includes('shadow')) {
+			return (
+				<span
+					className="inter-medium values-rectangle"
+					style={{ backgroundColor: TypeColor.shadow }}
+				>
+					No posee debiliades
+				</span>
+			);
+		}
+
 		let newDebility = Array.from(new Set(debility));
 
 		newDebility = newDebility.filter((el) => !pokemon.types?.includes(el));
@@ -95,129 +113,138 @@ const Detail = () => {
 	return (
 		<>
 			<div className="bs">
-				<button class="custom-btn btn-12" onClick={() => navigate('/home')}>
-					<span>Click!</span>
-					<span>¿Back to home?</span>
-				</button>
-
-				<section className="content-poke">
-					<article className="box1-poke">
-						<div className="poke-name">
-							<h1 className="inter-bold name-poke">
-								{capitalizeFirstLetter(pokemon.name)}
-							</h1>
-						</div>
-						<div className="group-habilities">
-							<h3 className="inter-bold">Types:</h3>
-							<div className="habilities">{appendTypes(pokemon?.types)}</div>
-						</div>
-						<div className="physical">
-							<div>
-								<h3 className="inter-bold">Height:</h3>
-								<div>
-									<span className="inter-medium values-rectangle">
-										{convertHeight(pokemon.height)}m
-									</span>
+				{!loading ? (
+					<>
+						<button class="custom-btn btn-12" onClick={() => navigate('/home')}>
+							<span>Click!</span>
+							<span>¿Back to home?</span>
+						</button>
+						<section className="content-poke">
+							<article className="box1-poke">
+								<div className="poke-name">
+									<h1 className="inter-bold name-poke">
+										{capitalizeFirstLetter(pokemon.name)}
+									</h1>
 								</div>
-							</div>
-							<div>
-								<h3 className="inter-bold">Weight:</h3>
-								<span className="inter-medium values-rectangle">
-									{convertWeight(pokemon.weight)} kg
-								</span>
-							</div>
-						</div>
-						<div className="group-habilities">
-							<h3 className="inter-bold">Habilities:</h3>
-							<div className="habilities">
-								{pokemon.abilities?.map((el) => {
-									return (
+								<div className="group-habilities">
+									<h3 className="inter-bold">Types:</h3>
+									<div className="habilities">
+										{appendTypes(pokemon?.types)}
+									</div>
+								</div>
+								<div className="physical">
+									<div>
+										<h3 className="inter-bold">Height:</h3>
+										<div>
+											<span className="inter-medium values-rectangle">
+												{convertHeight(pokemon.height)}m
+											</span>
+										</div>
+									</div>
+									<div>
+										<h3 className="inter-bold">Weight:</h3>
 										<span className="inter-medium values-rectangle">
-											{capitalizeFirstLetter(el)}
+											{convertWeight(pokemon.weight)} kg
 										</span>
-									);
-								})}
-							</div>
-						</div>
-						<div className="group-habilities">
-							<h3 className="inter-bold">Debilities:</h3>
-							<div className="habilities debility">
-								{appendDebilities(pokemon?.debility)}
-							</div>
-						</div>
+									</div>
+								</div>
+								<div className="group-habilities">
+									<h3 className="inter-bold">Habilities:</h3>
+									<div className="habilities">
+										{pokemon.abilities?.map((el) => {
+											return (
+												<span className="inter-medium values-rectangle">
+													{capitalizeFirstLetter(el)}
+												</span>
+											);
+										})}
+									</div>
+								</div>
+								<div className="group-habilities">
+									<h3 className="inter-bold">Debilities:</h3>
+									<div className="habilities debility">
+										{appendDebilities(pokemon?.debility)}
+									</div>
+								</div>
 
-						<div>
-							<h3 className="inter-bold">Stats:</h3>
-							<div className="first-row-stats">
-								<div className="power">
-									<span
-										className={`inter-medium values-round ${colorChange(
-											pokemon.hp,
-										)}`}
-									>
-										{pokemon.hp}
-									</span>
-									<h4 className="inter-bold">HP</h4>
+								<div>
+									<h3 className="inter-bold">Stats:</h3>
+									<div className="first-row-stats">
+										<div className="power">
+											<span
+												className={`inter-medium values-round ${colorChange(
+													pokemon.hp,
+												)}`}
+											>
+												{pokemon.hp}
+											</span>
+											<h4 className="inter-bold">HP</h4>
+										</div>
+										<div className="power">
+											<span
+												className={`inter-medium values-round ${colorChange(
+													pokemon.attack,
+												)}`}
+											>
+												{pokemon.attack}
+											</span>
+											<h4 className="inter-bold">Attack</h4>
+										</div>
+										<div className="power">
+											<span
+												className={`inter-medium values-round ${colorChange(
+													pokemon.defense,
+												)}`}
+											>
+												{pokemon.defense}
+											</span>
+											<h4 className="inter-bold">Defense</h4>
+										</div>
+									</div>
+									<div className="second-row-stats">
+										<div className="power">
+											<span
+												className={`inter-medium values-round ${colorChange(
+													pokemon.special_attack,
+												)}`}
+											>
+												{pokemon.special_attack}
+											</span>
+											<h4 className="inter-bold">Special Attack</h4>
+										</div>
+										<div className="power">
+											<span
+												className={`inter-medium values-round ${colorChange(
+													pokemon.special_defense,
+												)}`}
+											>
+												{pokemon.special_defense}
+											</span>
+											<h4 className="inter-bold">Special Defense</h4>
+										</div>
+										<div className="power">
+											<span
+												className={`inter-medium values-round ${colorChange(
+													pokemon.speed,
+												)}`}
+											>
+												{pokemon.speed}
+											</span>
+											<h4 className="inter-bold">Speed</h4>
+										</div>
+									</div>
 								</div>
-								<div className="power">
-									<span
-										className={`inter-medium values-round ${colorChange(
-											pokemon.attack,
-										)}`}
-									>
-										{pokemon.attack}
-									</span>
-									<h4 className="inter-bold">Attack</h4>
-								</div>
-								<div className="power">
-									<span
-										className={`inter-medium values-round ${colorChange(
-											pokemon.defense,
-										)}`}
-									>
-										{pokemon.defense}
-									</span>
-									<h4 className="inter-bold">Defense</h4>
-								</div>
-							</div>
-							<div className="second-row-stats">
-								<div className="power">
-									<span
-										className={`inter-medium values-round ${colorChange(
-											pokemon.special_attack,
-										)}`}
-									>
-										{pokemon.special_attack}
-									</span>
-									<h4 className="inter-bold">Special Attack</h4>
-								</div>
-								<div className="power">
-									<span
-										className={`inter-medium values-round ${colorChange(
-											pokemon.special_defense,
-										)}`}
-									>
-										{pokemon.special_defense}
-									</span>
-									<h4 className="inter-bold">Special Defense</h4>
-								</div>
-								<div className="power">
-									<span
-										className={`inter-medium values-round ${colorChange(
-											pokemon.speed,
-										)}`}
-									>
-										{pokemon.speed}
-									</span>
-									<h4 className="inter-bold">Speed</h4>
-								</div>
-							</div>
-						</div>
-					</article>
-					<article className="box2-poke">
-						<img src={pokemon.image} alt={pokemon.name} />
-					</article>
-				</section>
+							</article>
+							<article className="box2-poke">
+								<img src={pokemon.image} alt={pokemon.name} />
+							</article>
+						</section>{' '}
+					</>
+				) : (
+					<div className="loader">
+						<Loader />
+					</div>
+				)}
 			</div>
 		</>
 	);

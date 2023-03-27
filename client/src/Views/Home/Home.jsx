@@ -37,12 +37,6 @@ const Home = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		setTypes('all');
-		setOrigin('all');
-		setSort('all');
-	}, []);
-
-	useEffect(() => {
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
 	}, [usePoke, range.firts, range.last]);
 
@@ -109,9 +103,6 @@ const Home = () => {
 							handlerFilterType(event);
 						}}
 					>
-						<option selected disabled>
-							Choose Type
-						</option>
 						<option value="all">All Types</option>
 						<option value="normal">Normal</option>
 						<option value="fighting">Fighting</option>
@@ -144,9 +135,6 @@ const Home = () => {
 							handleOrigin(event);
 						}}
 					>
-						<option selected disabled>
-							Choose Origin
-						</option>
 						<option value="all">All Pokemons</option>
 						<option value="db">My Pokemons</option>
 					</select>
@@ -160,9 +148,6 @@ const Home = () => {
 							handleOrder(event);
 						}}
 					>
-						<option selected disabled>
-							Choose Order
-						</option>
 						<option value="ascendent">Ascendent</option>
 						<option value="descendant">Descendant</option>
 						<option value="a_z">A - Z</option>
@@ -173,7 +158,7 @@ const Home = () => {
 				</div>
 			</div>
 
-			{charge && !currentPokes.length ? (
+			{charge && !currentPokes?.length ? (
 				''
 			) : (
 				<Pagination
@@ -185,34 +170,21 @@ const Home = () => {
 			)}
 
 			<div className="contain">
-				{charge && !currentPokes.length ? (
+				{charge && !currentPokes?.length ? (
 					<div>
 						<Loader />
 					</div>
 				) : currentPokes.length ? (
 					currentPokes.map((pokemon) => {
-						if (pokemon.createdInDb) {
-							return (
-								<Card
-									id={pokemon.id}
-									id2={
-										pokemon.id.length + Math.floor(Math.random() * 1000) + 1011
-									}
-									name={pokemon.name}
-									types={pokemon.types}
-									image={pokemon.image}
-								/>
-							);
-						} else {
-							return (
-								<Card
-									id={pokemon.id}
-									name={pokemon.name}
-									types={pokemon.types}
-									image={pokemon.image}
-								/>
-							);
-						}
+						return (
+							<Card
+								id={pokemon.id}
+								id2={pokemon.id2}
+								name={pokemon.name}
+								types={pokemon.types}
+								image={pokemon.image}
+							/>
+						);
 					})
 				) : (
 					<div className="notfound">

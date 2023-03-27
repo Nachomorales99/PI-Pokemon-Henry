@@ -19,7 +19,7 @@ const SearchBar = ({ setCurrentPage }) => {
 
 	return (
 		<>
-			<div class="container">
+			<div className="container">
 				<input
 					type="text"
 					placeholder="Search..."

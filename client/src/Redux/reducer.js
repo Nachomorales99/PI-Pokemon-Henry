@@ -62,13 +62,13 @@ let reducer = (state = initialState, action) => {
 
 			if (sort === 'ascendent' || sort === 'descendant') {
 				sort === 'ascendent'
-					? newOrder.sort((a, b) => a.id - b.id)
-					: newOrder.sort((a, b) => b.id - a.id);
+					? newOrder.sort((a, b) => a.id2 - b.id2)
+					: newOrder.sort((a, b) => b.id2 - a.id2);
 			} else if (sort === 'a_z' || sort === 'z_a') {
 				sort === 'a_z'
 					? newOrder.sort((a, b) => a.name.localeCompare(b.name))
 					: newOrder.sort((a, b) => b.name.localeCompare(a.name));
-			} else {
+			} else if (sort === 'major_attack' || sort === 'minor_attack') {
 				sort === 'major_attack'
 					? newOrder.sort((a, b) => a.attack - b.attack)
 					: newOrder.sort((a, b) => b.attack - a.attack);
