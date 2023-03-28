@@ -16,6 +16,7 @@ const initialState = {
 	types2: 'all',
 	origin: 'all',
 	order: 'ascendent',
+	name: '',
 };
 
 let reducer = (state = initialState, action) => {
@@ -36,22 +37,18 @@ let reducer = (state = initialState, action) => {
 		case FILTERS:
 			let filtered = state.pokemons;
 
-			console.log(action.payload);
+			//TYPES
+			if (state.types2 !== 'all') {
+				filtered = filtered.filter((el) => el.types.includes(state.types2));
+			} else if (state.types2 === 'all') {
+				filtered = state.pokemons;
+			}
 
 			//ORIGIN
 			if (state.origin === 'db') {
 				filtered = filtered.filter((el) => el.createdInDb === true);
 			} else if (state.origin === 'api') {
 				filtered = filtered.filter((el) => el.createdInDb === false);
-			} else if (state.origin === 'all') {
-				filtered = state.pokemons;
-			}
-
-			//TYPES
-			if (state.types2 !== 'all') {
-				filtered = filtered.filter((el) => el.types.includes(state.types2));
-			} else if (state.types2 === 'all') {
-				filtered = state.pokemons;
 			}
 
 			//ORDER

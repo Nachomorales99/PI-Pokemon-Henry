@@ -5,11 +5,7 @@ import Nav from '../../Components/Nav/Nav';
 import Card from '../../Components/Card/Card';
 import Loader from '../../Components/Loader/Loader';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-	// get_all_pokemons,
-	filters,
-	setFilter,
-} from '../../Redux/Actions/actions';
+import { filters, setFilter } from '../../Redux/Actions/actions';
 
 const Home = () => {
 	//HOOKS
@@ -18,13 +14,9 @@ const Home = () => {
 	let types2 = useSelector((state) => state.types2);
 	let origin = useSelector((state) => state.origin);
 	let order = useSelector((state) => state.order);
-
 	let allTypes = useSelector((state) => state.types).filter(
 		(el) => el.name !== 'unknown',
 	);
-	let refType = useRef(null);
-	let refOrigin = useRef(null);
-	let refOrder = useRef(null);
 
 	//STATES
 	let [currentPage, setCurrentPage] = useState(1);
@@ -35,14 +27,8 @@ const Home = () => {
 	);
 	let [charge, setCharge] = useState(true);
 	let [flag, setFlag] = useState(true);
-	// let [filter, setFilter] = useState({
-	// 	types: 'all',
-	// 	origin: 'all',
-	// 	order: 'ascendent',
-	// });
 
 	//EFFECTS
-	//when the component is assembled the pokemon is loaded
 	useEffect(() => {
 		setTimeout(() => {
 			setCharge(false);
@@ -51,12 +37,14 @@ const Home = () => {
 
 	useEffect(() => {
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
+	}, [usePoke, range.firts, range.last]);
 
+	useEffect(() => {
 		setRange({
 			firts: (currentPage - 1) * pokesPerPage,
 			last: currentPage * pokesPerPage,
 		});
-	}, [usePoke, range.firts, range.last, currentPage, pokesPerPage]);
+	}, [currentPage, pokesPerPage]);
 
 	//FUNCTIONS
 
@@ -78,91 +66,95 @@ const Home = () => {
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
 	};
 
-	const handleFilterTypes = (event) => {
+	let handleFilterTypes = (event) => {
+		console.log(event.target.value);
 		dispatch(setFilter({ types2: event.target.value }));
 	};
 
-	const handleFilterOrigin = (event) => {
+	let handleFilterOrigin = (event) => {
+		console.log(event.target.value);
+
 		dispatch(setFilter({ origin: event.target.value }));
 	};
 
-	const handleFilterOrder = (event) => {
+	let handleFilterOrder = (event) => {
+		console.log(event.target.value);
 		dispatch(setFilter({ order: event.target.value }));
 	};
 
 	return (
 		<>
 			<Nav setCurrentPage={setCurrentPage} />
-
-			<div className="filters">
-				<div className="box">
-					<select
-						className="selectTypes"
-						value={types2}
-						onChange={handleFilterTypes}
-					>
-						<option value="all">All Types</option>
-
-						{allTypes &&
-							allTypes
-								.sort((a, b) => (a.name > b.name ? 1 : -1))
-								.map((el, index) => (
-									<option
-										className="optionTypeForm"
-										key={index}
-										value={el.name}
-									>
-										{el.name[0].toUpperCase() + el.name.slice(1)}
-									</option>
-								))}
-					</select>
-				</div>
-
-				<div className="box">
-					<select
-						className="selectTypes"
-						value={origin}
-						onChange={(event) => {
-							handleFilterOrigin(event);
+			<div className="header">
+				<div className="containButton">
+					<button
+						className="button"
+						onClick={(event) => {
+							handleFilter(event);
 						}}
 					>
-						<option value="all">All Pokemons</option>
-						<option value="api">Poke Api</option>
-						<option value="db">My Pokemons</option>
-					</select>
+						Apply Filter
+					</button>
 				</div>
 
-				<div className="box">
-					<select
-						className="selectTypes"
-						value={order}
-						onChange={(event) => {
-							handleFilterOrder(event);
-						}}
-					>
-						<option value="ascendent">Ascendent</option>
-						<option value="descendant">Descendant</option>
-						<option value="a_z">A - Z</option>
-						<option value="z_a">Z - A</option>
-						<option value="major_attack">Increased attack</option>
-						<option value="minor_attack">Decreased attack</option>
-					</select>
+				<div className="filters">
+					<div className="box">
+						<select
+							className="selectTypes"
+							value={types2}
+							onChange={(event) => {
+								handleFilterTypes(event);
+							}}
+						>
+							<option value="all">All Types</option>
+
+							{allTypes &&
+								allTypes
+									.sort((a, b) => (a.name > b.name ? 1 : -1))
+									.map((el, index) => (
+										<option
+											className="optionTypeForm"
+											key={index}
+											value={el.name}
+										>
+											{el.name[0].toUpperCase() + el.name.slice(1)}
+										</option>
+									))}
+						</select>
+					</div>
+
+					<div className="box">
+						<select
+							className="selectTypes"
+							value={origin}
+							onChange={(event) => {
+								handleFilterOrigin(event);
+							}}
+						>
+							<option value="all">All Pokemons</option>
+							<option value="api">Poke Api</option>
+							<option value="db">My Pokemons</option>
+						</select>
+					</div>
+
+					<div className="box">
+						<select
+							className="selectTypes"
+							value={order}
+							onChange={(event) => {
+								handleFilterOrder(event);
+							}}
+						>
+							<option value="ascendent">Ascendent</option>
+							<option value="descendant">Descendant</option>
+							<option value="a_z">A - Z</option>
+							<option value="z_a">Z - A</option>
+							<option value="major_attack">Increased attack</option>
+							<option value="minor_attack">Decreased attack</option>
+						</select>
+					</div>
 				</div>
 			</div>
-
-			<button
-				id="button"
-				onClick={(event) => {
-					handleFilter(event);
-				}}
-			>
-				<span></span>
-				<span></span>
-				<span></span>
-				<span></span>
-				Filter
-			</button>
-
 			{charge && !currentPokes?.length ? (
 				''
 			) : (

@@ -6,8 +6,38 @@
 	justify-content: center;
 }
 
+.header {
+	display: flex;
+	flex-direction: column;
+}
+
+.containButton {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+.button {
+	font-family: 'Times New Roman', Times, serif;
+	width: 8em;
+	height: 1.4em;
+	font-size: 20px;
+	border-radius: 5px;
+	border: 0;
+	background-color: rgba(36, 55, 99, 1);
+	color: white;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: rgba(255, 235, 183, 1);
+	color: black;
+}
+
 .filters {
 	display: flex;
+	flex-direction: row;
 	justify-content: space-around;
 	margin-top: 20px;
 	margin-bottom: 20px;
