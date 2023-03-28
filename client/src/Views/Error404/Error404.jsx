@@ -9,9 +9,9 @@ const Error404 = () => {
 		<>
 			<div className="wrapper">
 				<p>
-					You seem to be lost on the pokemon trail.
+					You seem to be lost on your pokemon journey.
 					<br />
-					Press the pokedex button to return to the Kanto region.
+					Press the pokedex button to return to Kanto region.
 				</p>
 				<span>44</span>
 

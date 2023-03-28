@@ -4,16 +4,18 @@ import {
 	RESET_STATE,
 	GET_ALL_TYPES,
 	GET_NAME,
-	HANDLER_TYPES,
-	HANDLER_ORIGIN,
-	ORDER,
+	FILTERS,
+	SET_FILTERS,
 } from './Actions/type';
 
 const initialState = {
-	allPokemons: [],
-	pokemons: [],
+	allPokemons: [], //MOSTRADO EN EL FRONT
+	pokemons: [], // INMUTABLE
 	types: [],
 	detail: {},
+	types2: 'all',
+	origin: 'all',
+	order: 'ascendent',
 };
 
 let reducer = (state = initialState, action) => {
@@ -31,52 +33,71 @@ let reducer = (state = initialState, action) => {
 				types: action.payload,
 			};
 
-		case HANDLER_TYPES:
-			let type =
-				action.payload === 'all'
-					? state.pokemons
-					: state.pokemons?.filter((el) => el.types?.includes(action.payload));
+		case FILTERS:
+			let filtered = state.pokemons;
 
-			return {
-				...state,
-				allPokemons: type,
-			};
+			console.log(action.payload);
 
-		case HANDLER_ORIGIN:
-			let copyPokemons = state.pokemons;
-			let origin = action.payload;
+			//ORIGIN
+			if (state.origin === 'db') {
+				filtered = filtered.filter((el) => el.createdInDb === true);
+			} else if (state.origin === 'api') {
+				filtered = filtered.filter((el) => el.createdInDb === false);
+			} else if (state.origin === 'all') {
+				filtered = state.pokemons;
+			}
 
-			if (origin === 'all') return { ...state, allPokemons: copyPokemons };
-			if (origin === 'db')
-				copyPokemons = copyPokemons.filter((el) => el.createdInDb === true);
+			//TYPES
+			if (state.types2 !== 'all') {
+				filtered = filtered.filter((el) => el.types.includes(state.types2));
+			} else if (state.types2 === 'all') {
+				filtered = state.pokemons;
+			}
 
-			return {
-				...state,
-				allPokemons: copyPokemons,
-			};
-
-		case ORDER:
-			let sort = action.payload;
-			let newOrder = state.allPokemons;
-
-			if (sort === 'ascendent' || sort === 'descendant') {
-				sort === 'ascendent'
-					? newOrder.sort((a, b) => a.id2 - b.id2)
-					: newOrder.sort((a, b) => b.id2 - a.id2);
-			} else if (sort === 'a_z' || sort === 'z_a') {
-				sort === 'a_z'
-					? newOrder.sort((a, b) => a.name.localeCompare(b.name))
-					: newOrder.sort((a, b) => b.name.localeCompare(a.name));
-			} else if (sort === 'major_attack' || sort === 'minor_attack') {
-				sort === 'major_attack'
-					? newOrder.sort((a, b) => a.attack - b.attack)
-					: newOrder.sort((a, b) => b.attack - a.attack);
+			//ORDER
+			if (state.order === 'ascendent' || state.order === 'descendant') {
+				state.order === 'ascendent'
+					? filtered.sort((a, b) => a.id2 - b.id2)
+					: filtered.sort((a, b) => b.id2 - a.id2);
+			} else if (state.order === 'a_z' || state.order === 'z_a') {
+				state.order === 'a_z'
+					? filtered.sort((a, b) => a.name.localeCompare(b.name))
+					: filtered.sort((a, b) => b.name.localeCompare(a.name));
+			} else if (
+				state.order === 'major_attack' ||
+				state.order === 'minor_attack'
+			) {
+				state.order === 'major_attack'
+					? filtered.sort((a, b) => a.attack - b.attack)
+					: filtered.sort((a, b) => b.attack - a.attack);
 			}
 
 			return {
 				...state,
-				allPokemons: newOrder,
+				allPokemons: filtered,
 			};
+
+		case SET_FILTERS:
+			if (action.payload.types2) {
+				return {
+					...state,
+					types2: action.payload.types2,
+				};
+			} else if (action.payload.origin) {
+				return {
+					...state,
+					origin: action.payload.origin,
+				};
+			} else if (action.payload.order) {
+				return {
+					...state,
+					order: action.payload.order,
+				};
+			} else {
+				return {
+					...state,
+				};
+			}
 
 		case GET_NAME:
 			let name =
