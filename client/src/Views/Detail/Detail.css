@@ -351,5 +351,5 @@
 	background-color: var(--blue);
 	position: absolute;
 	inset: 0;
-	clip-path: polygon(100% 0, 56.5% 0, 40% 100%, 100% 100%);
+	clip-path: polygon(100% 0, 53.8% 0, 40% 100%, 100% 100%);
 }

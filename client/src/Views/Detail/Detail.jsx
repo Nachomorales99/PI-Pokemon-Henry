@@ -137,7 +137,7 @@ const Detail = () => {
 										<h3 className="inter-bold">Height:</h3>
 										<div>
 											<span className="inter-medium values-rectangle letter">
-												{convertHeight(pokemon.height)}m
+												{convertHeight(pokemon.height)} m
 											</span>
 										</div>
 									</div>

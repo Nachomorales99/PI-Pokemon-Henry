@@ -9,12 +9,16 @@ import {
 	handler_types,
 	handler_origin,
 	order,
+	get_all_pokemons,
 } from '../../Redux/Actions/actions';
 
 const Home = () => {
 	//HOOKS
 	let dispatch = useDispatch();
 	let usePoke = useSelector((state) => state.allPokemons);
+	let allTypes = useSelector((state) => state.types).filter(
+		(el) => el.name !== 'unknown',
+	);
 
 	//STATES
 	let [currentPage, setCurrentPage] = useState(1);
@@ -74,8 +78,11 @@ const Home = () => {
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
 	};
 
-	// let reloadPokemon = (event) => {
-	// 	event.preventDefault();
+	// let reloadPokemon = () => {
+	// 	setCharge(true);
+	// 	setTimeout(() => {
+	// 		setCharge(false);
+	// 	}, 11000);
 	// 	setTypes('all');
 	// 	setOrigin('all');
 	// 	setSort('ascendent');
@@ -87,8 +94,8 @@ const Home = () => {
 			<Nav setCurrentPage={setCurrentPage} />
 			{/* <div>
 				<button
-					onClick={(event) => {
-						reloadPokemon(event);
+					onClick={() => {
+						reloadPokemon();
 					}}
 				>
 					Reload Pokemons
@@ -104,26 +111,19 @@ const Home = () => {
 						}}
 					>
 						<option value="all">All Types</option>
-						<option value="normal">Normal</option>
-						<option value="fighting">Fighting</option>
-						<option value="flying">Flying</option>
-						<option value="poison">Poison</option>
-						<option value="ground">Ground</option>
-						<option value="rock">Rock</option>
-						<option value="bug">Bug</option>
-						<option value="ghost">Ghost</option>
-						<option value="steel">Steel</option>
-						<option value="fire">Fire</option>
-						<option value="water">Water</option>
-						<option value="grass">Grass</option>
-						<option value="electric">Electric</option>
-						<option value="psychic">Psychic</option>
-						<option value="ice">Ice</option>
-						<option value="dragon">Dragon</option>
-						<option value="dark">Dark</option>
-						<option value="fairy">Fairy</option>
-						<option value="shadow">Shadow</option>
-						<option value="unknown">Unknown</option>
+
+						{allTypes &&
+							allTypes
+								.sort((a, b) => (a.name > b.name ? 1 : -1))
+								.map((el, index) => (
+									<option
+										className="optionTypeForm"
+										key={index}
+										value={el.name}
+									>
+										{el.name[0].toUpperCase() + el.name.slice(1)}
+									</option>
+								))}
 					</select>
 				</div>
 
