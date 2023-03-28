@@ -7,7 +7,6 @@ import {
 	HANDLER_TYPES,
 	HANDLER_ORIGIN,
 	ORDER,
-	EMPTY,
 } from './Actions/type';
 
 const initialState = {
@@ -104,18 +103,58 @@ let reducer = (state = initialState, action) => {
 				detail: {},
 			};
 
-		case EMPTY:
-			return {
-				...state,
-				allPokemons: [],
-				pokemons: [],
-				types: [],
-				detail: {},
-			};
-
 		default:
 			return { ...state };
 	}
 };
 
 export default reducer;
+
+// const initialState = {
+// 	allPokemons: [],
+// 	pokemons: [],
+// 	types: [],
+// 	filteredByType: [],
+// 	filteredByOrigin: [],
+// 	detail: {},
+// };
+
+// let reducer = (state = initialState, action) => {
+// 	switch (action.type) {
+
+// 		case HANDLER_TYPES:
+// 			let type =
+// 				action.payload === 'all'
+// 					? state.pokemons
+// 					: state.pokemons?.filter((el) => el.types?.includes(action.payload));
+
+// 			let filteredByOrigin = state.filteredByOrigin ?? state.pokemons;
+// 			let allPokemons = filteredByOrigin?.filter((el) => type?.includes(el));
+
+// 			return {
+// 				...state,
+// 				filteredByOrigin: type,
+// 				allPokemons: allPokemons,
+// 			};
+
+// 		case HANDLER_ORIGIN:
+// 			let origin = action.payload;
+
+// 			let filteredByType = state.filteredByType ?? state.pokemons;
+
+// 			let filteredByOrigin2 = filteredByType;
+
+// 			if (origin === 'db')
+// 				filteredByOrigin2 = filteredByType?.filter(
+// 					(el) => el.createdInDb === true,
+// 				);
+
+// 			let allPokemons2 = filteredByOrigin2?.filter((el) =>
+// 				filteredByType?.includes(el),
+// 			);
+
+// 			return {
+// 				...state,
+// 				filteredByOrigin: filteredByOrigin2,
+// 				allPokemons: allPokemons2,
+// 			};

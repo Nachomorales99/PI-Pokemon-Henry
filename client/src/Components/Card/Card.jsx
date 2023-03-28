@@ -44,7 +44,7 @@ const Card = (props) => {
 	return (
 		<>
 			<Link to={`/detail/${props.id}`}>
-				<div id="card" style={styleCard(themeColor)}>
+				<div key={props.id} id="card" style={styleCard(themeColor)}>
 					<p className="number">
 						{props.id2 < 10
 							? `#000${props.id2}`

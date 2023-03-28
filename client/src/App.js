@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Landing, Home, Detail, Form } from './Views/index';
+import { Landing, Home, Detail, Form, Error404 } from './Views/index';
 import { useDispatch } from 'react-redux';
 import { get_all_pokemons } from './Redux/Actions/actions';
 import { useEffect } from 'react';
@@ -18,6 +18,7 @@ const App = () => {
 				<Route path="/home" element={<Home />} />
 				<Route path="/create" element={<Form />} />
 				<Route path="/detail/:id" element={<Detail />} />
+				<Route path="*" element={<Error404 />} />
 			</Routes>
 		</>
 	);

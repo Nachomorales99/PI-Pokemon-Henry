@@ -5,5 +5,4 @@ export const GET_ALL_TYPES = 'GET_ALL_TYPES';
 export const HANDLER_TYPES = 'HANDLER_TYPES';
 export const HANDLER_ORIGIN = 'HANDLER_ORIGIN';
 export const ORDER = 'ORDER';
-export const EMPTY = 'EMPTY';
 export const GET_NAME = 'GET_NAME';

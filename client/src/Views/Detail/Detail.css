@@ -1,6 +1,5 @@
 :root {
 	/** COLOR PALETTE **/
-	--blue-light: rgba(56, 96, 170, 0.3);
 	--yellow: rgba(253, 216, 93, 1);
 	--yellow-light: rgba(253, 216, 93, 0.5);
 	--red: rgba(241, 75, 61, 1);
@@ -160,6 +159,7 @@
 
 .name-poke {
 	font-size: 36px;
+	font-family: 'Times New Roman', Times, serif;
 }
 
 .values-rectangle,
@@ -168,10 +168,23 @@
 }
 
 .values-rectangle {
+	font-family: 'Times New Roman', Times, serif;
 	border-radius: 8px;
-	border: 2px solid var(--blue);
-	background-color: var(--blue-light);
+	background-color: var(--blue);
 	padding: 4px 10px;
+	font-size: 19px;
+}
+
+.letter {
+	color: white;
+}
+
+.debility {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	gap: 10px;
 }
 
 .yellow {

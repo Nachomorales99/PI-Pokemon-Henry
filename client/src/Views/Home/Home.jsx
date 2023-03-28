@@ -34,7 +34,7 @@ const Home = () => {
 		setTimeout(() => {
 			setCharge(false);
 		}, 11000);
-	}, [dispatch]);
+	}, []);
 
 	useEffect(() => {
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
@@ -175,7 +175,7 @@ const Home = () => {
 						<Loader />
 					</div>
 				) : currentPokes.length ? (
-					currentPokes.map((pokemon) => {
+					currentPokes.map((pokemon, index) => {
 						return (
 							<Card
 								id={pokemon.id}

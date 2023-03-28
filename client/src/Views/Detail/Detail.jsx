@@ -136,14 +136,14 @@ const Detail = () => {
 									<div>
 										<h3 className="inter-bold">Height:</h3>
 										<div>
-											<span className="inter-medium values-rectangle">
+											<span className="inter-medium values-rectangle letter">
 												{convertHeight(pokemon.height)}m
 											</span>
 										</div>
 									</div>
 									<div>
 										<h3 className="inter-bold">Weight:</h3>
-										<span className="inter-medium values-rectangle">
+										<span className="inter-medium values-rectangle letter">
 											{convertWeight(pokemon.weight)} kg
 										</span>
 									</div>
@@ -153,7 +153,7 @@ const Detail = () => {
 									<div className="habilities">
 										{pokemon.abilities?.map((el) => {
 											return (
-												<span className="inter-medium values-rectangle">
+												<span className="inter-medium values-rectangle letter">
 													{capitalizeFirstLetter(el)}
 												</span>
 											);

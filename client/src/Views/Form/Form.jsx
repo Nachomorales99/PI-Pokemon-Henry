@@ -5,7 +5,6 @@ import Loader from '../../Components/Loader/Loader';
 import {
 	get_all_types,
 	create_pokemon,
-	empty,
 	get_all_pokemons,
 } from '../../Redux/Actions/actions';
 import validation from '../../Components/Validations/Validations';
@@ -65,7 +64,8 @@ const Form = () => {
 	//EFFECTS
 	useEffect(() => {
 		dispatch(get_all_types());
-	}, [dispatch]);
+		// eslint-disable-next-line
+	}, []);
 
 	//FUNCTIONS
 	let handleSubmit = (event) => {
@@ -114,7 +114,6 @@ const Form = () => {
 
 			setTimeout(() => {
 				setLoading(false);
-				dispatch(empty());
 			}, 4000);
 
 			setTimeout(() => {
@@ -180,12 +179,12 @@ const Form = () => {
 		<>
 			<div className="bg">
 				{!loading ? (
-					<div class="login-box">
+					<div className="login-box">
 						<h2>Pokemon Lab</h2>
 						<form onSubmit={(event) => handleSubmit(event)}>
 							<div className="principalcolum">
 								<div className="colum1">
-									<div class="input-box">
+									<div className="input-box">
 										<input
 											type="text"
 											name="name"
@@ -196,7 +195,7 @@ const Form = () => {
 										<label>Name</label>
 										<span className="errorAlert">{errors.name}</span>
 									</div>
-									<div class="input-box">
+									<div className="input-box">
 										<input
 											type="number"
 											name="attack"
@@ -207,7 +206,7 @@ const Form = () => {
 										<label>Attack</label>
 										<span className="errorAlert">{errors.attack}</span>
 									</div>
-									<div class="input-box">
+									<div className="input-box">
 										<input
 											type="number"
 											name="defense"
@@ -218,7 +217,7 @@ const Form = () => {
 										<label>Defense</label>
 										<span className="errorAlert">{errors.defense}</span>
 									</div>
-									<div class="input-box">
+									<div className="input-box">
 										<input
 											type="number"
 											name="speed"
@@ -229,7 +228,7 @@ const Form = () => {
 										<label>Speed</label>
 										<span className="errorAlert">{errors.speed}</span>
 									</div>
-									<div class="input-box">
+									<div className="input-box">
 										<input
 											type="number"
 											name="height"
@@ -243,7 +242,7 @@ const Form = () => {
 								</div>
 
 								<div className="colum2">
-									<div class="input-box">
+									<div className="input-box">
 										<input
 											type="number"
 											name="weight"
@@ -254,7 +253,7 @@ const Form = () => {
 										<label>Weight</label>
 										<span className="errorAlert">{errors.weight}</span>
 									</div>
-									<div class="input-box">
+									<div className="input-box">
 										<input
 											type="number"
 											name="special_attack"
@@ -265,7 +264,7 @@ const Form = () => {
 										<label>Special Attacks</label>
 										<span className="errorAlert">{errors.special_attack}</span>
 									</div>
-									<div class="input-box">
+									<div className="input-box">
 										<input
 											type="number"
 											name="special_defense"
@@ -276,7 +275,7 @@ const Form = () => {
 										<label>Special Defense</label>
 										<span className="errorAlert">{errors.special_defense}</span>
 									</div>
-									<div class="input-box">
+									<div className="input-box">
 										<input
 											type="number"
 											name="hp"
@@ -287,7 +286,7 @@ const Form = () => {
 										<label>HP</label>
 										<span className="errorAlert">{errors.hp}</span>
 									</div>
-									<div class="input-box">
+									<div className="input-box">
 										<input
 											name="image"
 											placeholder="Url"

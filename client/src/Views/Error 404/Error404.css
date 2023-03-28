@@ -1,0 +1,61 @@
+.wrapper {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.wrapper span {
+	position: relative;
+	color: rgba(36, 55, 99, 1);
+	font-weight: 900;
+	font-size: 22em;
+	display: block;
+	overflow: hidden;
+	width: fit-content;
+	height: max-content;
+}
+
+.wrapper span:first-letter {
+	letter-spacing: 18vmax;
+}
+
+.wrapper span:before {
+	content: '';
+	background-image: url('https://res.cloudinary.com/nacho-morales/image/upload/v1679968752/Pokemon%20App/Pikachu-Meme-Transparent-PNG_vr6xsw.png');
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	left: 4%;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+
+.wrapper p {
+	font-size: 30px;
+	text-align: center;
+	font-style: italic;
+	font-weight: 400;
+	color: rgba(36, 55, 99, 1);
+	margin-top: 0;
+}
+
+.wrapper button {
+	background-color: rgba(255, 110, 49, 1);
+	border: 0;
+	padding: 11px 22px;
+	border-radius: 50px;
+	color: #fff;
+	margin-top: 10px;
+	cursor: pointer;
+	font-weight: 900;
+}
+
+.wrapper button:hover {
+	background-color: rgb(223, 79, 17);
+}

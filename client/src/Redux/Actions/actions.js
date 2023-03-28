@@ -8,7 +8,6 @@ import {
 	HANDLER_TYPES,
 	HANDLER_ORIGIN,
 	ORDER,
-	EMPTY,
 } from './type';
 
 export let get_all_pokemons = () => {
@@ -82,11 +81,5 @@ export let create_pokemon = (payload) => {
 	return async function () {
 		let create = await axios.post(`http://localhost:3001/pokemons`, payload);
 		return create;
-	};
-};
-
-export let empty = () => {
-	return {
-		type: EMPTY,
 	};
 };
