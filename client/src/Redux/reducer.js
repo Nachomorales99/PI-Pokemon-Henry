@@ -3,6 +3,7 @@ import {
 	GET_POKEMON_DETAIL,
 	RESET_STATE,
 	GET_ALL_TYPES,
+	SET_NAME,
 	GET_NAME,
 	FILTERS,
 	ORDER,
@@ -125,12 +126,19 @@ let reducer = (state = initialState, action) => {
 				allPokemons: ordered,
 			};
 
+		case SET_NAME:
+			console.log(state.name);
+			return {
+				...state,
+				name: action.payload.name,
+			};
+
 		case GET_NAME:
 			let name =
-				action.payload === ''
+				state.name === ''
 					? state.filtered
 					: state.allPokemons.filter((el) =>
-							el.name.toLowerCase().includes(action.payload.toLowerCase()),
+							el.name.toLowerCase().includes(state.name.toLowerCase()),
 					  );
 
 			return {

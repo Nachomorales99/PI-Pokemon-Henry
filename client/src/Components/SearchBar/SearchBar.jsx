@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getName } from '../../Redux/Actions/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { setName, getName } from '../../Redux/Actions/actions';
 import './SearchBar.css';
 
 const SearchBar = ({ setCurrentPage }) => {
 	//HOOKS
 	let dispatch = useDispatch();
-
-	//STATES
-	let [name, setName] = useState('');
+	let name = useSelector((state) => state.name);
 
 	//FUNCTION
 
-	let handleInputChange = (event) => {
-		dispatch(getName(event));
+	let handleSetName = (event) => {
+		dispatch(setName({ name: event }));
+	};
+
+	let handleGetName = (event) => {
+		dispatch(getName());
 		setCurrentPage(1);
 	};
 
@@ -25,8 +27,8 @@ const SearchBar = ({ setCurrentPage }) => {
 					placeholder="Search..."
 					value={name}
 					onChange={(event) => {
-						setName(event.target.value);
-						handleInputChange(event.target.value);
+						handleSetName(event.target.value);
+						handleGetName();
 					}}
 					id="searchBar"
 					className="searchbar"

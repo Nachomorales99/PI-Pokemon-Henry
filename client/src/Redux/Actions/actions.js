@@ -4,6 +4,7 @@ import {
 	GET_POKEMON_DETAIL,
 	RESET_STATE,
 	GET_ALL_TYPES,
+	SET_NAME,
 	GET_NAME,
 	FILTERS,
 	SET_FILTERS,
@@ -68,10 +69,16 @@ export let resetState = () => {
 	};
 };
 
-export let getName = (name) => {
+export let setName = (name) => {
+	return {
+		type: SET_NAME,
+		payload: name,
+	};
+};
+
+export let getName = () => {
 	return {
 		type: GET_NAME,
-		payload: name,
 	};
 };
 

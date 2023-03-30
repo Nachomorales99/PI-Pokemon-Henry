@@ -7,8 +7,8 @@ import {
 	create_pokemon,
 	get_all_pokemons,
 } from '../../Redux/Actions/actions';
-import validation from '../../Components/Validations/Validations';
-import validationEmpty from '../../Components/Validations/ValidationEmpty';
+import validation from './Validations/Validations';
+import validationEmpty from './Validations/ValidationEmpty';
 import './Form.css';
 
 const Form = () => {
