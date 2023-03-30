@@ -5,7 +5,7 @@ import Nav from '../../Components/Nav/Nav';
 import Card from '../../Components/Card/Card';
 import Loader from '../../Components/Loader/Loader';
 import { useSelector, useDispatch } from 'react-redux';
-import { filters, setFilter } from '../../Redux/Actions/actions';
+import { filters, setFilter, ordered } from '../../Redux/Actions/actions';
 
 const Home = () => {
 	//HOOKS
@@ -26,25 +26,27 @@ const Home = () => {
 		usePoke?.slice(range.firts, range.last),
 	);
 	let [charge, setCharge] = useState(true);
-	let [flag, setFlag] = useState(true);
+	let [flag, setFlag] = useState(false);
 
-	//EFFECTS
+	//EFFECT
+
 	useEffect(() => {
+		if (usePoke.length === 0) {
+			setFlag(true);
+		}
+
 		setTimeout(() => {
 			setCharge(false);
-		}, 11000);
-	}, []);
+			setFlag(false);
+		}, 10000);
 
-	useEffect(() => {
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
-	}, [usePoke, range.firts, range.last]);
 
-	useEffect(() => {
 		setRange({
 			firts: (currentPage - 1) * pokesPerPage,
 			last: currentPage * pokesPerPage,
 		});
-	}, [currentPage, pokesPerPage]);
+	}, [usePoke, range.firts, range.last, currentPage, pokesPerPage]);
 
 	//FUNCTIONS
 
@@ -52,33 +54,47 @@ const Home = () => {
 		setCurrentPage(pageNumber);
 	};
 
-	let handleFilter = (event) => {
-		event.preventDefault();
+	let handleFilter = () => {
+		setCharge(true);
+		setFlag(true);
+
+		setTimeout(() => {
+			setCharge(false);
+			setFlag(false);
+		}, 1000);
+
 		dispatch(filters());
 
-		if (flag) {
-			setFlag({ ...flag, flag: false });
-		} else {
-			setFlag({ ...flag, flag: true });
-		}
+		setCurrentPage(1);
+
+		setCurrentPokes(usePoke?.slice(range.firts, range.last));
+	};
+
+	let handlerOrder = () => {
+		setCharge(true);
+		setFlag(true);
+
+		setTimeout(() => {
+			setCharge(false);
+			setFlag(false);
+		}, 1000);
+
+		dispatch(ordered());
 
 		setCurrentPage(1);
+
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
 	};
 
 	let handleFilterTypes = (event) => {
-		console.log(event.target.value);
 		dispatch(setFilter({ types2: event.target.value }));
 	};
 
 	let handleFilterOrigin = (event) => {
-		console.log(event.target.value);
-
 		dispatch(setFilter({ origin: event.target.value }));
 	};
 
 	let handleFilterOrder = (event) => {
-		console.log(event.target.value);
 		dispatch(setFilter({ order: event.target.value }));
 	};
 
@@ -94,6 +110,15 @@ const Home = () => {
 						}}
 					>
 						Apply Filter
+					</button>
+
+					<button
+						className="button"
+						onClick={(event) => {
+							handlerOrder(event);
+						}}
+					>
+						Apply Order
 					</button>
 				</div>
 
@@ -155,7 +180,7 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
-			{charge && !currentPokes?.length ? (
+			{charge && flag ? (
 				''
 			) : (
 				<Pagination
@@ -167,7 +192,7 @@ const Home = () => {
 			)}
 
 			<div className="contain">
-				{charge && !currentPokes?.length ? (
+				{charge && flag ? (
 					<div>
 						<Loader />
 					</div>

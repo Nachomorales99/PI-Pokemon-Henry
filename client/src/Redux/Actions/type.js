@@ -5,3 +5,4 @@ export const GET_ALL_TYPES = 'GET_ALL_TYPES';
 export const GET_NAME = 'GET_NAME';
 export const FILTERS = 'FILTERS';
 export const SET_FILTERS = 'SET_FILTERS';
+export const ORDER = 'ORDER';

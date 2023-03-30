@@ -7,6 +7,7 @@ import {
 	GET_NAME,
 	FILTERS,
 	SET_FILTERS,
+	ORDER,
 } from './type';
 
 export let get_all_pokemons = () => {
@@ -31,16 +32,22 @@ export let get_all_types = () => {
 	};
 };
 
+export let setFilter = (set) => {
+	return {
+		type: SET_FILTERS,
+		payload: set,
+	};
+};
+
 export let filters = () => {
 	return {
 		type: FILTERS,
 	};
 };
 
-export let setFilter = (set) => {
+export let ordered = () => {
 	return {
-		type: SET_FILTERS,
-		payload: set,
+		type: ORDER,
 	};
 };
 
