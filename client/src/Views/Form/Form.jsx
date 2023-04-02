@@ -8,10 +8,12 @@ import {
 	get_all_pokemons,
 	reset_allpokemons,
 	setFilter,
+	show_modal,
 } from '../../Redux/Actions/actions';
 import validation from './Validations/Validations';
 import validationEmpty from './Validations/ValidationEmpty';
 import './Form.css';
+import Modal_Create from '../../Components/Modals/Modal_create';
 
 const Form = () => {
 	//HOOKS
@@ -21,6 +23,7 @@ const Form = () => {
 	);
 	let pokemons = useSelector((state) => state.pokemons);
 	let navigate = useNavigate();
+	let show = useSelector((state) => state.showModal);
 
 	//COLORS
 	const TypeColor = {
@@ -121,7 +124,7 @@ const Form = () => {
 			}, 5000);
 
 			setTimeout(() => {
-				alert('Pokemon successfully created');
+				dispatch(show_modal(true));
 			}, 5200);
 
 			setInput({
@@ -182,6 +185,7 @@ const Form = () => {
 	return (
 		<>
 			<div className="bg">
+				{show ? <Modal_Create /> : ''}
 				{!loading ? (
 					<div className="login-box">
 						<h2>Pokemon Lab</h2>

@@ -11,6 +11,8 @@ import {
 	ORDER,
 	RESET_ALLPOKEMONS,
 	SET_DELETE_POKEMON,
+	SHOW_MODAL,
+	MAYBE_ELIMINATE,
 } from './type';
 
 export let get_all_pokemons = () => {
@@ -110,5 +112,19 @@ export let getName = () => {
 export let reset_allpokemons = () => {
 	return {
 		type: RESET_ALLPOKEMONS,
+	};
+};
+
+export let show_modal = (show) => {
+	return {
+		type: SHOW_MODAL,
+		payload: show,
+	};
+};
+
+export let maybe_eliminate = (id) => {
+	return {
+		type: MAYBE_ELIMINATE,
+		payload: id,
 	};
 };

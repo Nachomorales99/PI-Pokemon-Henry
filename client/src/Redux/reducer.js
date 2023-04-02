@@ -10,6 +10,8 @@ import {
 	SET_FILTERS,
 	RESET_ALLPOKEMONS,
 	SET_DELETE_POKEMON,
+	SHOW_MODAL,
+	MAYBE_ELIMINATE,
 } from './Actions/type';
 
 const initialState = {
@@ -22,6 +24,8 @@ const initialState = {
 	origin: 'all',
 	order: 'ascendent',
 	name: '',
+	showModal: null,
+	maybe_delete: null,
 };
 
 let reducer = (state = initialState, action) => {
@@ -172,6 +176,15 @@ let reducer = (state = initialState, action) => {
 				pokemons: state.pokemons.filter((el) => el.id !== action.payload),
 				filtered: state.filtered.filter((el) => el.id !== action.payload),
 			};
+
+		case SHOW_MODAL:
+			return {
+				...state,
+				showModal: action.payload,
+			};
+
+		case MAYBE_ELIMINATE:
+			return { ...state, maybe_delete: action.payload };
 
 		case RESET_STATE:
 			return {

@@ -9,3 +9,5 @@ export const SET_FILTERS = 'SET_FILTERS';
 export const ORDER = 'ORDER';
 export const RESET_ALLPOKEMONS = 'RESET_ALLPOKEMONS';
 export const SET_DELETE_POKEMON = 'SET_DELETE_POKEMON';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const MAYBE_ELIMINATE = 'MAYBE_ELIMINATE';

@@ -2,10 +2,7 @@ import React from 'react';
 import './Card.css';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {
-	delete_pokemon,
-	set_Delete_Pokemon,
-} from '../../Redux/Actions/actions';
+import { show_modal, maybe_eliminate } from '../../Redux/Actions/actions';
 
 const Card = (props) => {
 	let dispatch = useDispatch();
@@ -49,8 +46,8 @@ const Card = (props) => {
 	};
 
 	let handlerDelete = (id) => {
-		dispatch(set_Delete_Pokemon(id));
-		dispatch(delete_pokemon(id));
+		dispatch(show_modal(true));
+		dispatch(maybe_eliminate(id));
 	};
 
 	return (

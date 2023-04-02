@@ -6,6 +6,7 @@ import Card from '../../Components/Card/Card';
 import Loader from '../../Components/Loader/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 import { filters, setFilter, ordered } from '../../Redux/Actions/actions';
+import Modal_delete from '../../Components/Modals/Modal_delete';
 
 const Home = () => {
 	//HOOKS
@@ -17,6 +18,8 @@ const Home = () => {
 	let allTypes = useSelector((state) => state.types).filter(
 		(el) => el.name !== 'unknown',
 	);
+
+	let showModal = useSelector((state) => state.showModal);
 
 	//STATES
 	let [currentPage, setCurrentPage] = useState(1);
@@ -90,6 +93,7 @@ const Home = () => {
 
 	return (
 		<>
+			{showModal ? <Modal_delete /> : ''}
 			<Nav setCurrentPage={setCurrentPage} />
 			<div className="header">
 				<div className="containButton">
