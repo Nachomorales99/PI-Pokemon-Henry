@@ -1,8 +1,15 @@
 import React from 'react';
 import './Card.css';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {
+	delete_pokemon,
+	set_Delete_Pokemon,
+} from '../../Redux/Actions/actions';
 
 const Card = (props) => {
+	let dispatch = useDispatch();
+
 	const TypeColor = {
 		bug: '#26de81',
 		dragon: '#30385c',
@@ -27,7 +34,7 @@ const Card = (props) => {
 
 	let themeColor = TypeColor[props.types[0]];
 
-	const appendTypes = (types) => {
+	let appendTypes = (types) => {
 		return types.map((item) => (
 			<span style={{ backgroundColor: TypeColor[item] }}>
 				{item.charAt(0).toUpperCase() + item.slice(1)}
@@ -35,16 +42,38 @@ const Card = (props) => {
 		));
 	};
 
-	const styleCard = (color) => {
+	let styleCard = (color) => {
 		return {
 			background: `radial-gradient(circle at 50% 0%, ${color} 36%, #ffffff 36%)`,
 		};
 	};
 
+	let handlerDelete = (id) => {
+		dispatch(set_Delete_Pokemon(id));
+		dispatch(delete_pokemon(id));
+	};
+
 	return (
 		<>
-			<Link to={`/detail/${props.id}`}>
-				<div key={props.id} id="card" style={styleCard(themeColor)}>
+			<div key={props.id} id="card" style={styleCard(themeColor)}>
+				<div className="container_buttoms">
+					{isNaN(props.id) ? (
+						<div
+							className="destroy"
+							onClick={() => {
+								handlerDelete(props.id);
+							}}
+						>
+							<img
+								id="img_destroy"
+								src="https://res.cloudinary.com/nacho-morales/image/upload/v1680451259/Pokemon%20App/trash_jg141i.png"
+								alt=""
+							/>
+						</div>
+					) : (
+						<div></div>
+					)}
+
 					<p className="number">
 						{props.id2 < 10
 							? `#000${props.id2}`
@@ -54,13 +83,16 @@ const Card = (props) => {
 							? `#0${props.id2}`
 							: `#${props.id2}`}
 					</p>
-					<img src={props.image} alt="Pokemon" />
-					<h2 className="poke-name">
-						{props.name.charAt(0).toUpperCase() + props.name.slice(1)}
-					</h2>
-					<div className="types">{appendTypes(props.types)}</div>
 				</div>
-			</Link>
+
+				<Link to={`/detail/${props.id}`}>
+					<img src={props.image} alt="Pokemon" />
+				</Link>
+				<h2 className="poke-name">
+					{props.name.charAt(0).toUpperCase() + props.name.slice(1)}
+				</h2>
+				<div className="types">{appendTypes(props.types)}</div>
+			</div>
 		</>
 	);
 };

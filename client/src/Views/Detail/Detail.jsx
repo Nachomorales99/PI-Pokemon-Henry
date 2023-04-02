@@ -150,7 +150,7 @@ const Detail = () => {
 								</div>
 								<div className="group-habilities">
 									<h3 className="inter-bold">Habilities:</h3>
-									<div className="habilities">
+									<div className="habilities habilities2">
 										{pokemon.abilities?.map((el) => {
 											return (
 												<span className="inter-medium values-rectangle letter">

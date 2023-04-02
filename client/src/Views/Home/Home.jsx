@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 import Pagination from '../../Components/Pagination/Pagination';
 import Nav from '../../Components/Nav/Nav';
@@ -26,18 +26,12 @@ const Home = () => {
 		usePoke?.slice(range.firts, range.last),
 	);
 	let [charge, setCharge] = useState(true);
-	let [flag, setFlag] = useState(false);
 
 	//EFFECT
 
 	useEffect(() => {
-		if (usePoke.length === 0) {
-			setFlag(true);
-		}
-
 		setTimeout(() => {
 			setCharge(false);
-			setFlag(false);
 		}, 10000);
 
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
@@ -56,11 +50,9 @@ const Home = () => {
 
 	let handleFilter = () => {
 		setCharge(true);
-		setFlag(true);
 
 		setTimeout(() => {
 			setCharge(false);
-			setFlag(false);
 		}, 1000);
 
 		dispatch(filters());
@@ -72,11 +64,9 @@ const Home = () => {
 
 	let handlerOrder = () => {
 		setCharge(true);
-		setFlag(true);
 
 		setTimeout(() => {
 			setCharge(false);
-			setFlag(false);
 		}, 1000);
 
 		dispatch(ordered());
@@ -180,7 +170,7 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
-			{charge && flag ? (
+			{charge && !usePoke.length ? (
 				''
 			) : (
 				<Pagination
@@ -192,7 +182,7 @@ const Home = () => {
 			)}
 
 			<div className="contain">
-				{charge && flag ? (
+				{charge && !usePoke.length ? (
 					<div>
 						<Loader />
 					</div>

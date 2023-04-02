@@ -179,7 +179,8 @@
 	color: white;
 }
 
-.debility {
+.debility,
+.habilities2 {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -247,9 +248,6 @@
 	margin-right: 35px;
 }
 
-.debility {
-	display: flex;
-}
 .first-row-stats {
 	width: 250px;
 	display: flex;

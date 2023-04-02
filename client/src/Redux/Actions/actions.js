@@ -9,6 +9,8 @@ import {
 	FILTERS,
 	SET_FILTERS,
 	ORDER,
+	RESET_ALLPOKEMONS,
+	SET_DELETE_POKEMON,
 } from './type';
 
 export let get_all_pokemons = () => {
@@ -63,6 +65,29 @@ export let get_pokemon_detail = (id) => {
 	};
 };
 
+export let create_pokemon = (payload) => {
+	return async function () {
+		let create = await axios.post(`http://localhost:3001/pokemons`, payload);
+		return create;
+	};
+};
+
+export let delete_pokemon = (id) => {
+	return async function () {
+		let deleted = await axios.delete(
+			`http://localhost:3001/pokemons/delete/${id}`,
+		);
+		return deleted;
+	};
+};
+
+export let set_Delete_Pokemon = (id) => {
+	return {
+		type: SET_DELETE_POKEMON,
+		payload: id,
+	};
+};
+
 export let resetState = () => {
 	return {
 		type: RESET_STATE,
@@ -82,9 +107,8 @@ export let getName = () => {
 	};
 };
 
-export let create_pokemon = (payload) => {
-	return async function () {
-		let create = await axios.post(`http://localhost:3001/pokemons`, payload);
-		return create;
+export let reset_allpokemons = () => {
+	return {
+		type: RESET_ALLPOKEMONS,
 	};
 };

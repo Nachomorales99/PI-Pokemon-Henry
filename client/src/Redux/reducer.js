@@ -8,6 +8,8 @@ import {
 	FILTERS,
 	ORDER,
 	SET_FILTERS,
+	RESET_ALLPOKEMONS,
+	SET_DELETE_POKEMON,
 } from './Actions/type';
 
 const initialState = {
@@ -39,7 +41,18 @@ let reducer = (state = initialState, action) => {
 			};
 
 		case SET_FILTERS:
-			if (action.payload.types2) {
+			if (
+				action.payload.types2 &&
+				action.payload.origin &&
+				action.payload.order
+			) {
+				return {
+					...state,
+					types2: action.payload.types2,
+					origin: action.payload.origin,
+					order: action.payload.order,
+				};
+			} else if (action.payload.types2) {
 				return {
 					...state,
 					types2: action.payload.types2,
@@ -152,10 +165,26 @@ let reducer = (state = initialState, action) => {
 				detail: action.payload,
 			};
 
+		case SET_DELETE_POKEMON:
+			return {
+				...state,
+				allPokemons: state.allPokemons.filter((el) => el.id !== action.payload),
+				pokemons: state.pokemons.filter((el) => el.id !== action.payload),
+				filtered: state.filtered.filter((el) => el.id !== action.payload),
+			};
+
 		case RESET_STATE:
 			return {
 				...state,
 				detail: {},
+			};
+
+		case RESET_ALLPOKEMONS:
+			return {
+				...state,
+				allPokemons: [],
+				pokemons: [],
+				filtered: [],
 			};
 
 		default:

@@ -5,6 +5,7 @@ const allPokeData = require('../../Controllers/Pokemon/allPokeData');
 const pokemonsByName = require('../../Controllers/Pokemon/pokemonsByName');
 const pokemonsById = require('../../Controllers/Pokemon/pokemonsById');
 const createPokemon = require('../../Controllers/Pokemon/createPokemon');
+const deletePokemon = require('../../Controllers/Pokemon/deletePokemon');
 
 //allPokemons and getpokemonByName
 
@@ -110,5 +111,22 @@ router.post('/', async (req, res) => {
 		res.status(400).json({ erorr: error.message });
 	}
 });
+
+//delete pokemon
+router.delete('/delete/:id', async (req, res) => {
+	let { id } = req.params;
+
+	try {
+		let pokemonToDelete = await deletePokemon(id);
+
+		if (pokemonToDelete.error) throw new Error(pokemonToDelete.error);
+
+		res.status(200).json(pokemonToDelete);
+	} catch (error) {
+		res.status(400).json({ error: error.message });
+	}
+});
+
+//update pokemon
 
 module.exports = router;

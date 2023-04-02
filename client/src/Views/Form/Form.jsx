@@ -6,6 +6,8 @@ import {
 	get_all_types,
 	create_pokemon,
 	get_all_pokemons,
+	reset_allpokemons,
+	setFilter,
 } from '../../Redux/Actions/actions';
 import validation from './Validations/Validations';
 import validationEmpty from './Validations/ValidationEmpty';
@@ -108,17 +110,19 @@ const Form = () => {
 			};
 
 			dispatch(create_pokemon(pokePost));
+			dispatch(reset_allpokemons());
 			dispatch(get_all_pokemons());
+			dispatch(setFilter({ types2: 'all', origin: 'all', order: 'ascendent' }));
 
 			setLoading(true);
 
 			setTimeout(() => {
 				setLoading(false);
-			}, 4000);
+			}, 5000);
 
 			setTimeout(() => {
 				alert('Pokemon successfully created');
-			}, 4200);
+			}, 5200);
 
 			setInput({
 				name: '',

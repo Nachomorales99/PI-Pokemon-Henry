@@ -12,16 +12,41 @@
 	max-height: 200px;
 	margin: 20px auto;
 }
+
+.container_buttoms {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .number {
 	width: 80px;
+	height: 35px;
 	background-color: #ffffff;
 	text-align: center;
 	padding: 8px 0;
 	border-radius: 30px;
-	margin-left: auto;
 	font-weight: 400;
 	color: black;
 	font-family: 'Times New Roman', Times, serif;
+}
+
+.destroy {
+	display: flex;
+	align-items: center;
+	width: 80px;
+	height: 35px;
+	background-color: #ffffff;
+	border-radius: 30px;
+}
+.destroy:hover {
+	background-color: rgb(252, 16, 16);
+}
+
+.destroy #img_destroy {
+	width: 20px;
+	height: 20px;
 }
 
 .poke-name {
@@ -34,7 +59,8 @@
 	justify-content: space-around;
 	margin: 20px 0 40px 0;
 }
-.number span,
+
+.number p,
 .types span {
 	font-size: 12px;
 	letter-spacing: 0.4px;
