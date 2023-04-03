@@ -5,7 +5,12 @@ import Nav from '../../Components/Nav/Nav';
 import Card from '../../Components/Card/Card';
 import Loader from '../../Components/Loader/Loader';
 import { useSelector, useDispatch } from 'react-redux';
-import { filters, setFilter, ordered } from '../../Redux/Actions/actions';
+import {
+	filters,
+	setFilter,
+	ordered,
+	set_page,
+} from '../../Redux/Actions/actions';
 import ModalDelete from '../../Components/Modals/Modal_delete';
 
 const Home = () => {
@@ -18,17 +23,18 @@ const Home = () => {
 	let allTypes = useSelector((state) => state.types).filter(
 		(el) => el.name !== 'unknown',
 	);
-	let [flag, setFlag] = useState(false);
 	let showModal = useSelector((state) => state.showModal);
+	let currentPage = useSelector((state) => state.currentPage);
 
 	//STATES
-	let [currentPage, setCurrentPage] = useState(1);
+	// let [currentPage, setCurrentPage] = useState(1);
 	let [pokesPerPage] = useState(12);
 	let [range, setRange] = useState({ firts: 0, last: 12 });
 	let [currentPokes, setCurrentPokes] = useState(
 		usePoke?.slice(range.firts, range.last),
 	);
 	let [charge, setCharge] = useState(true);
+	let [flag, setFlag] = useState(false);
 
 	//EFFECT
 
@@ -48,7 +54,7 @@ const Home = () => {
 	//FUNCTIONS
 
 	let paginated = (pageNumber) => {
-		setCurrentPage(pageNumber);
+		dispatch(set_page(pageNumber));
 	};
 
 	let handleFilter = () => {
@@ -60,7 +66,7 @@ const Home = () => {
 
 		dispatch(filters());
 
-		setCurrentPage(1);
+		dispatch(set_page(1));
 
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
 	};
@@ -74,7 +80,7 @@ const Home = () => {
 
 		dispatch(ordered());
 
-		setCurrentPage(1);
+		dispatch(set_page(1));
 
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
 	};
@@ -94,7 +100,7 @@ const Home = () => {
 	return (
 		<>
 			{showModal ? <ModalDelete /> : ''}
-			<Nav setCurrentPage={setCurrentPage} />
+			<Nav />
 			<div className="header">
 				<div className="containButton">
 					<button

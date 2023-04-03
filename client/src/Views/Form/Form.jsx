@@ -13,7 +13,7 @@ import {
 import validation from './Validations/Validations';
 import validationEmpty from './Validations/ValidationEmpty';
 import './Form.css';
-import Modal_Create from '../../Components/Modals/Modal_create';
+import ModalCreate from '../../Components/Modals/Modal_create';
 
 const Form = () => {
 	//HOOKS
@@ -185,7 +185,7 @@ const Form = () => {
 	return (
 		<>
 			<div className="bg">
-				{show ? <Modal_Create /> : ''}
+				{show ? <ModalCreate /> : ''}
 				{!loading ? (
 					<div className="login-box">
 						<h2>Pokemon Lab</h2>

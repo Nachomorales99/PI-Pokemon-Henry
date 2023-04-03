@@ -13,6 +13,9 @@ import {
 	SET_DELETE_POKEMON,
 	SHOW_MODAL,
 	MAYBE_ELIMINATE,
+	SET_PAGE,
+	SET_UPDATE_POKEMON,
+	UPDATE_POKEMON,
 } from './type';
 
 export let get_all_pokemons = () => {
@@ -67,6 +70,23 @@ export let get_pokemon_detail = (id) => {
 	};
 };
 
+export let get_new_detail = (id) => {
+	return async function (dispatch) {
+		let newPokemon = await axios.get(`http://localhost:3001/pokemons/${id}`);
+
+		return dispatch({
+			type: SET_UPDATE_POKEMON,
+			payload: newPokemon.data,
+		});
+	};
+};
+
+export let new_pokemon_detail = () => {
+	return {
+		type: UPDATE_POKEMON,
+	};
+};
+
 export let create_pokemon = (payload) => {
 	return async function () {
 		let create = await axios.post(`http://localhost:3001/pokemons`, payload);
@@ -80,6 +100,16 @@ export let delete_pokemon = (id) => {
 			`http://localhost:3001/pokemons/delete/${id}`,
 		);
 		return deleted;
+	};
+};
+
+export let update_pokemon = (payload) => {
+	return async function () {
+		let update = await axios.put(
+			`http://localhost:3001/pokemons/update`,
+			payload,
+		);
+		return update;
 	};
 };
 
@@ -126,5 +156,12 @@ export let maybe_eliminate = (id) => {
 	return {
 		type: MAYBE_ELIMINATE,
 		payload: id,
+	};
+};
+
+export let set_page = (page) => {
+	return {
+		type: SET_PAGE,
+		payload: page,
 	};
 };

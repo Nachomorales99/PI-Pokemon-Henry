@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { get_pokemon_detail, resetState } from '../../Redux/Actions/actions';
+import {
+	get_pokemon_detail,
+	resetState,
+	show_modal,
+} from '../../Redux/Actions/actions';
 import Loader from '../../Components/Loader/Loader';
 import './Detail.css';
+import ModalUpdate from '../../Components/Modals/Modal_update';
 
 const Detail = () => {
 	//HOOKS
@@ -11,14 +16,13 @@ const Detail = () => {
 	let navigate = useNavigate();
 	let dispatch = useDispatch();
 	let pokemon = useSelector((state) => state.detail);
+	let showModal = useSelector((state) => state.showModal);
 
 	//STATE
-	let [loading, setLoading] = useState(false);
+	let [loading, setLoading] = useState(true);
 
 	//EFFECTS
 	useEffect(() => {
-		setLoading(true);
-
 		setTimeout(() => {
 			setLoading(false);
 		}, 500);
@@ -113,12 +117,28 @@ const Detail = () => {
 	return (
 		<>
 			<div className="bs">
-				{!loading ? (
+				{showModal ? (
+					<ModalUpdate />
+				) : !loading ? (
 					<>
-						<button class="custom-btn btn-12" onClick={() => navigate('/home')}>
+						<button
+							className="custom-btn btn-12"
+							onClick={() => navigate('/home')}
+						>
 							<span>Click!</span>
-							<span>¿Back to home?</span>
+							<span>Back to home?</span>
 						</button>
+						{isNaN(id) ? (
+							<button
+								className="custom-btn btn-12"
+								onClick={() => dispatch(show_modal(true))}
+							>
+								<span>Click!</span>
+								<span>Edit Pokemon?</span>
+							</button>
+						) : (
+							''
+						)}
 						<section className="content-poke">
 							<article className="box1-poke">
 								<div className="poke-name">

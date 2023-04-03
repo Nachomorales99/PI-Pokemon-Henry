@@ -12,6 +12,9 @@ import {
 	SET_DELETE_POKEMON,
 	SHOW_MODAL,
 	MAYBE_ELIMINATE,
+	SET_PAGE,
+	SET_UPDATE_POKEMON,
+	UPDATE_POKEMON,
 } from './Actions/type';
 
 const initialState = {
@@ -26,6 +29,8 @@ const initialState = {
 	name: '',
 	showModal: null,
 	maybe_delete: null,
+	currentPage: 1,
+	newDetail: {},
 };
 
 let reducer = (state = initialState, action) => {
@@ -177,6 +182,18 @@ let reducer = (state = initialState, action) => {
 				filtered: state.filtered.filter((el) => el.id !== action.payload),
 			};
 
+		case SET_UPDATE_POKEMON:
+			return {
+				...state,
+				newDetail: action.payload,
+			};
+
+		case UPDATE_POKEMON:
+			return {
+				...state,
+				detail: state.newDetail,
+			};
+
 		case SHOW_MODAL:
 			return {
 				...state,
@@ -185,6 +202,12 @@ let reducer = (state = initialState, action) => {
 
 		case MAYBE_ELIMINATE:
 			return { ...state, maybe_delete: action.payload };
+
+		case SET_PAGE:
+			return {
+				...state,
+				currentPage: action.payload,
+			};
 
 		case RESET_STATE:
 			return {

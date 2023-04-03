@@ -12,7 +12,7 @@ const ModalDelete = () => {
 	let dispatch = useDispatch();
 	let pokemon_delete = useSelector((state) => state.maybe_delete);
 
-	let handleConfirm = (id) => {
+	let handleConfirm = () => {
 		dispatch(show_modal(null));
 		dispatch(set_Delete_Pokemon(pokemon_delete));
 		dispatch(delete_pokemon(pokemon_delete));

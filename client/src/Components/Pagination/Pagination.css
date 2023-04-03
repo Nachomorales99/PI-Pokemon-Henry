@@ -1,9 +1,14 @@
-.paginated {
+.pagination {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
+}
+
+.paginated {
+	display: flex;
+	align-items: center;
 	gap: 60px;
 	margin: 0;
 	padding: 1rem;
@@ -30,4 +35,22 @@
 	font-weight: bold;
 	width: 70px;
 	height: 70px;
+}
+
+.button-prev-next {
+	font-family: 'Times New Roman', Times, serif;
+	width: 3em;
+	height: 1.4em;
+	font-size: 20px;
+	border-radius: 5px;
+	border: 0;
+	background-color: rgba(36, 55, 99, 1);
+	color: white;
+	cursor: pointer;
+	margin-left: 50px;
+	margin-right: 50px;
+}
+
+.button-prev-next:hover {
+	background-color: #ee1515;
 }
