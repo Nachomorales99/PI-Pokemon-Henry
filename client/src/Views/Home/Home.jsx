@@ -6,7 +6,7 @@ import Card from '../../Components/Card/Card';
 import Loader from '../../Components/Loader/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 import { filters, setFilter, ordered } from '../../Redux/Actions/actions';
-import Modal_delete from '../../Components/Modals/Modal_delete';
+import ModalDelete from '../../Components/Modals/Modal_delete';
 
 const Home = () => {
 	//HOOKS
@@ -18,7 +18,7 @@ const Home = () => {
 	let allTypes = useSelector((state) => state.types).filter(
 		(el) => el.name !== 'unknown',
 	);
-
+	let [flag, setFlag] = useState(false);
 	let showModal = useSelector((state) => state.showModal);
 
 	//STATES
@@ -52,10 +52,10 @@ const Home = () => {
 	};
 
 	let handleFilter = () => {
-		setCharge(true);
+		setFlag(true);
 
 		setTimeout(() => {
-			setCharge(false);
+			setFlag(false);
 		}, 1000);
 
 		dispatch(filters());
@@ -66,10 +66,10 @@ const Home = () => {
 	};
 
 	let handlerOrder = () => {
-		setCharge(true);
+		setFlag(true);
 
 		setTimeout(() => {
-			setCharge(false);
+			setFlag(false);
 		}, 1000);
 
 		dispatch(ordered());
@@ -93,7 +93,7 @@ const Home = () => {
 
 	return (
 		<>
-			{showModal ? <Modal_delete /> : ''}
+			{showModal ? <ModalDelete /> : ''}
 			<Nav setCurrentPage={setCurrentPage} />
 			<div className="header">
 				<div className="containButton">
@@ -174,7 +174,7 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
-			{charge && !usePoke.length ? (
+			{(charge && !usePoke.length) || flag ? (
 				''
 			) : (
 				<Pagination
@@ -186,7 +186,7 @@ const Home = () => {
 			)}
 
 			<div className="contain">
-				{charge && !usePoke.length ? (
+				{(charge && !usePoke.length) || flag ? (
 					<div>
 						<Loader />
 					</div>
