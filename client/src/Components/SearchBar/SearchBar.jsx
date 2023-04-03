@@ -22,6 +22,7 @@ const SearchBar = () => {
 		<>
 			<div className="container">
 				<input
+					autoComplete="off"
 					type="text"
 					placeholder="Search..."
 					value={name}

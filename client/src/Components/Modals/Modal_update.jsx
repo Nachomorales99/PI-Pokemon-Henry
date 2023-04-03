@@ -208,6 +208,7 @@ const ModalUpdate = () => {
 									<div className="colum1">
 										<div className="input-box">
 											<input
+												autoComplete="off"
 												type="text"
 												name="name"
 												placeholder="Pokemon name"
@@ -314,6 +315,7 @@ const ModalUpdate = () => {
 										</div>
 										<div className="input-box">
 											<input
+												autoComplete="off"
 												name="image"
 												placeholder="Url"
 												value={input.image}

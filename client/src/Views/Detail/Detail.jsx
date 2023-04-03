@@ -25,7 +25,7 @@ const Detail = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false);
-		}, 500);
+		}, 700);
 
 		dispatch(get_pokemon_detail(id));
 		return () => {
