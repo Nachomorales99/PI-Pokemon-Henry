@@ -11,7 +11,7 @@ const Pagination = ({ pokesPerPage, usePoke, paginated, currentPage }) => {
 	return (
 		<>
 			<div className="pagination">
-				{pageNumbers.length === 1 ? (
+				{pageNumbers.length <= 1 ? (
 					''
 				) : (
 					<button
@@ -36,7 +36,7 @@ const Pagination = ({ pokesPerPage, usePoke, paginated, currentPage }) => {
 						))}
 				</ul>
 
-				{pageNumbers.length === 1 ? (
+				{pageNumbers.length <= 1 ? (
 					''
 				) : (
 					<button
