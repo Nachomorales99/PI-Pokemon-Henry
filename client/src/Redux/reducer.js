@@ -159,7 +159,7 @@ let reducer = (state = initialState, action) => {
 			let name =
 				state.name === ''
 					? state.filtered
-					: state.allPokemons.filter((el) =>
+					: state.filtered.filter((el) =>
 							el.name.toLowerCase().includes(state.name.toLowerCase()),
 					  );
 
