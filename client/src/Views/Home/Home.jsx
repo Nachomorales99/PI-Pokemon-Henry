@@ -27,7 +27,6 @@ const Home = () => {
 	let currentPage = useSelector((state) => state.currentPage);
 
 	//STATES
-	// let [currentPage, setCurrentPage] = useState(1);
 	let [pokesPerPage] = useState(12);
 	let [range, setRange] = useState({ firts: 0, last: 12 });
 	let [currentPokes, setCurrentPokes] = useState(
@@ -65,6 +64,7 @@ const Home = () => {
 		}, 1000);
 
 		dispatch(filters());
+		dispatch(ordered());
 
 		dispatch(set_page(1));
 
@@ -156,9 +156,16 @@ const Home = () => {
 								handleFilterOrigin(event);
 							}}
 						>
-							<option value="all">All Pokemons</option>
-							<option value="api">Poke Api</option>
-							<option value="db">My Pokemons</option>
+							<option value="kanto">Kanto</option>
+							<option value="johto">Johto</option>
+							<option value="hoenn">Hoenn</option>
+							<option value="sinnoh">Sinnoh</option>
+							<option value="tesalia">Tesalia</option>
+							<option value="kalos">Kalos</option>
+							<option value="alola">Alola</option>
+							<option value="galar">Galar</option>
+							<option value="paldea">Paldea</option>
+							<option value="database">My Pokemons</option>
 						</select>
 					</div>
 

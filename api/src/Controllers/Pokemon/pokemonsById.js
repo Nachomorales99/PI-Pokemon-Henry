@@ -1,4 +1,4 @@
-const { Pokemon, Type } = require('../../db');
+const { Pokemon, PokemonApi, Type } = require('../../db');
 const axios = require('axios');
 
 let pokemonsById = async (id, source) => {
@@ -30,6 +30,7 @@ let pokemonsById = async (id, source) => {
 					special_defense: idDb.special_defense,
 					speed: idDb.speed,
 					image: idDb.image,
+					region: idDb.region,
 					types: idDb.Types.map((type) => type.name),
 					debility: idDb.Types.reduce((acc, type) => {
 						return acc.concat(
@@ -40,56 +41,45 @@ let pokemonsById = async (id, source) => {
 				};
 			}
 		} else {
-			let idApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+			let idApi = await PokemonApi.findOne({
+				where: { id: id },
+				include: {
+					model: Type,
+					attributes: ['name', 'debility'],
+					through: {
+						types: [],
+					},
+				},
+			});
 
-			if (idApi.data) {
-				let pokemon = idApi.data;
-				let pokeId = {
-					name: pokemon.name,
-					id: id,
-					id2: id,
-					height: pokemon.height,
-					weight: pokemon.weight,
-					abilities: pokemon.abilities.map((abl) => abl.ability.name),
-					hp: pokemon.stats[0].base_stat,
-					attack: pokemon.stats[1].base_stat,
-					defense: pokemon.stats[2].base_stat,
-					special_attack: pokemon.stats[3].base_stat,
-					special_defense: pokemon.stats[4].base_stat,
-					speed: pokemon.stats[5].base_stat,
-					types: pokemon.types.map((el) => el.type.name),
-					image: pokemon.sprites.other['official-artwork'].front_default,
-
-					debility: await Promise.all(
-						pokemon.types.map(async (el) => {
-							let r = await axios.get(el.type.url);
-
-							delete el.type.url;
-							delete el.type.name;
-
-							if (r.data.damage_relations.double_damage_from.length !== 0) {
-								return r.data.damage_relations.double_damage_from.map(
-									(el) => el.name,
-								);
-							} else {
-								return ['No posee debilidades'];
-							}
-						}),
-					).then((allArrays) =>
-						allArrays
-							.flatMap((array) => array)
-							.reduce(
-								(acc, value) => (acc.includes(value) ? acc : [...acc, value]),
-								[],
-							),
-					),
+			if (idApi) {
+				return {
+					name: idApi.name,
+					id: idApi.id,
+					id2: idApi.id,
+					height: idApi.height,
+					weight: idApi.weight,
+					abilities: idApi.abilities,
+					hp: idApi.hp,
+					attack: idApi.attack,
+					defense: idApi.defense,
+					special_attack: idApi.special_attack,
+					special_defense: idApi.special_defense,
+					speed: idApi.speed,
+					types: idApi.Types.map((type) => type.name),
+					image: idApi.image,
+					region: idApi.region,
+					debility: idApi.Types.reduce((acc, type) => {
+						return acc.concat(
+							type.debility.slice(1, type.debility.length - 1).split(','),
+						);
+					}, []),
 					createdInDb: false,
 				};
-
-				return pokeId;
 			}
 		}
 	} catch (error) {
+		console.log(error);
 		return { error: 'Pokemon not found' };
 	}
 };

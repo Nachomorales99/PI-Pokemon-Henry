@@ -24,7 +24,7 @@ const initialState = {
 	filtered: [],
 	detail: {},
 	types2: 'all',
-	origin: 'all',
+	origin: 'kanto',
 	order: 'ascendent',
 	name: '',
 	showModal: null,
@@ -88,34 +88,10 @@ let reducer = (state = initialState, action) => {
 			//TYPES
 			if (state.types2 !== 'all') {
 				filtered = filtered.filter((el) => el.types.includes(state.types2));
-			} else if (state.types2 === 'all') {
-				filtered = state.pokemons;
 			}
 
 			//ORIGIN
-			if (state.origin === 'db') {
-				filtered = filtered.filter((el) => el.createdInDb === true);
-			} else if (state.origin === 'api') {
-				filtered = filtered.filter((el) => el.createdInDb === false);
-			}
-
-			//TO MAINTAIN ORDER
-			if (state.order === 'ascendent' || state.order === 'descendant') {
-				state.order === 'ascendent'
-					? filtered.sort((a, b) => a.id2 - b.id2)
-					: filtered.sort((a, b) => b.id2 - a.id2);
-			} else if (state.order === 'a_z' || state.order === 'z_a') {
-				state.order === 'a_z'
-					? filtered.sort((a, b) => a.name.localeCompare(b.name))
-					: filtered.sort((a, b) => b.name.localeCompare(a.name));
-			} else if (
-				state.order === 'major_attack' ||
-				state.order === 'minor_attack'
-			) {
-				state.order === 'major_attack'
-					? filtered.sort((a, b) => a.attack - b.attack)
-					: filtered.sort((a, b) => b.attack - a.attack);
-			}
+			filtered = filtered.filter((el) => el.region === state.origin);
 
 			return {
 				...state,

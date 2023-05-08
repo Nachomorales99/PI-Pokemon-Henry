@@ -18,20 +18,26 @@ import {
 	UPDATE_POKEMON,
 } from './type';
 
+const URL = 'http://localhost:3001';
+
 export let get_all_pokemons = () => {
 	return async function (dispatch) {
-		let pokemons = await axios.get('http://localhost:3001/pokemons');
+		let pokemons = await axios.get(`${URL}/pokemons`);
 
-		return dispatch({
+		dispatch({
 			type: GET_ALL_POKEMONS,
 			payload: pokemons.data,
+		});
+
+		dispatch({
+			type: FILTERS,
 		});
 	};
 };
 
 export let get_all_types = () => {
 	return async function (dispatch) {
-		let types = await axios.get('http://localhost:3001/types');
+		let types = await axios.get(`${URL}/types`);
 
 		return dispatch({
 			type: GET_ALL_TYPES,
@@ -61,7 +67,7 @@ export let ordered = () => {
 
 export let get_pokemon_detail = (id) => {
 	return async function (dispatch) {
-		let pokemon = await axios.get(`http://localhost:3001/pokemons/${id}`);
+		let pokemon = await axios.get(`${URL}/pokemons/${id}`);
 
 		return dispatch({
 			type: GET_POKEMON_DETAIL,
@@ -72,7 +78,7 @@ export let get_pokemon_detail = (id) => {
 
 export let get_new_detail = (id) => {
 	return async function (dispatch) {
-		let newPokemon = await axios.get(`http://localhost:3001/pokemons/${id}`);
+		let newPokemon = await axios.get(`${URL}/pokemons/${id}`);
 
 		return dispatch({
 			type: SET_UPDATE_POKEMON,
@@ -89,26 +95,21 @@ export let new_pokemon_detail = () => {
 
 export let create_pokemon = (payload) => {
 	return async function () {
-		let create = await axios.post(`http://localhost:3001/pokemons`, payload);
+		let create = await axios.post(`${URL}/pokemons`, payload);
 		return create;
 	};
 };
 
 export let delete_pokemon = (id) => {
 	return async function () {
-		let deleted = await axios.delete(
-			`http://localhost:3001/pokemons/delete/${id}`,
-		);
+		let deleted = await axios.delete(`${URL}/pokemons/delete/${id}`);
 		return deleted;
 	};
 };
 
 export let update_pokemon = (payload) => {
 	return async function () {
-		let update = await axios.put(
-			`http://localhost:3001/pokemons/update`,
-			payload,
-		);
+		let update = await axios.put(`${URL}/pokemons/update`, payload);
 		return update;
 	};
 };

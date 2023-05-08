@@ -1,15 +1,11 @@
 const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
 
-function pokemonModel(sequelize) {
-	// defino el modelo
+function pokemonApiModel(sequelize) {
 	sequelize.define(
-		'Pokemon',
+		'PokemonApi',
 		{
 			id: {
 				type: DataTypes.INTEGER,
-				defaultValue: DataTypes.UUIDV4,
 				allowNull: false,
 				primaryKey: true,
 			},
@@ -28,8 +24,6 @@ function pokemonModel(sequelize) {
 			image: {
 				type: DataTypes.STRING,
 				allowNull: false,
-				defaultValue:
-					'https://res.cloudinary.com/nacho-morales/image/upload/v1679777574/Pokemon%20App/Default_img_fjt3qd.png',
 			},
 
 			hp: {
@@ -75,16 +69,15 @@ function pokemonModel(sequelize) {
 			},
 			createdInDb: {
 				type: DataTypes.BOOLEAN,
-				defaultValue: true,
+				defaultValue: false,
 			},
 			region: {
 				type: DataTypes.STRING,
 				allowNull: false,
-				defaultValue: 'database',
 			},
 		},
 		{ timestamps: false },
 	);
 }
 
-module.exports = pokemonModel;
+module.exports = pokemonApiModel;

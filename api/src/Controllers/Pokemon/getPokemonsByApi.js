@@ -1,57 +1,77 @@
-const axios = require('axios');
+const { PokemonApi, Type } = require('../../db');
+const kantoRegion = require('./Regions/kanto');
+const johotoRegion = require('./Regions/johto');
+const hoennRegion = require('./Regions/hoenn');
+const sinnohRegion = require('./Regions/sinnoh');
+const tesaliaRegion = require('./Regions/tesalia');
+const kalosRegion = require('./Regions/kalos');
+const alolaRegion = require('./Regions/alola');
+const galarRegion = require('./Regions/galar');
+const paldeaRegion = require('./Regions/paldea');
 
-let getPokemonsByApi = async (url = `https://pokeapi.co/api/v2/pokemon`) => {
+let getPokemonsByApi = async () => {
 	try {
-		let resultApi = await axios.get(url);
+		let pokeApi = await PokemonApi.findAll({
+			include: {
+				model: Type,
+				attributes: ['name', 'debility'],
+				through: {
+					types: [],
+				},
+			},
+		});
 
-		let nextApi = await axios.get(resultApi.data.next);
+		if (!pokeApi.length) {
+			let kanto = await kantoRegion();
+			let johto = await johotoRegion();
+			let hoenn = await hoennRegion();
+			let sinnoh = await sinnohRegion();
+			let tesalia = await tesaliaRegion();
+			let kalos = await kalosRegion();
+			let alola = await alolaRegion();
+			let galar = await galarRegion();
+			let paldea = await paldeaRegion();
 
-		let allPokemons = [...resultApi.data.results, ...nextApi.data.results];
-
-		for (let pokemon of allPokemons) {
-			let url = await axios.get(pokemon.url); //we access the url with the data of each pokemon
-			delete pokemon.url;
-
-			pokemon.id = url.data.id;
-			pokemon.id2 = url.data.id;
-			pokemon.height = url.data.height;
-			pokemon.weight = url.data.weight;
-			pokemon.abilities = url.data.abilities.map((abl) => abl.ability.name);
-			pokemon.hp = url.data.stats[0].base_stat;
-			pokemon.attack = url.data.stats[1].base_stat;
-			pokemon.defense = url.data.stats[2].base_stat;
-			pokemon.special_attack = url.data.stats[3].base_stat;
-			pokemon.special_defense = url.data.stats[4].base_stat;
-			pokemon.speed = url.data.stats[5].base_stat;
-			pokemon.types = url.data.types.map((el) => el.type.name);
-			pokemon.image = url.data.sprites.other['official-artwork'].front_default;
-			pokemon.debility = await Promise.all(
-				url.data.types.map(async (el) => {
-					let r = await axios.get(el.type.url);
-
-					delete el.type.url;
-					delete el.type.name;
-
-					if (r.data.damage_relations.double_damage_from.length !== 0) {
-						return r.data.damage_relations.double_damage_from.map(
-							(el) => el.name,
-						);
-					} else {
-						return ['No posee debilidades'];
-					}
-				}),
-			).then((allArrays) =>
-				allArrays
-					.flatMap((array) => array)
-					.reduce(
-						(acc, value) => (acc.includes(value) ? acc : [...acc, value]),
-						[],
-					),
-			);
-			pokemon.createdInDb = false;
+			pokeApi = [
+				...kanto,
+				...johto,
+				...hoenn,
+				...sinnoh,
+				...tesalia,
+				...kalos,
+				...alola,
+				...galar,
+				...paldea,
+			];
 		}
 
-		return allPokemons;
+		pokeApi = pokeApi.map((pokemon) => {
+			return {
+				id: pokemon.id,
+				id2: pokemon.id2,
+				name: pokemon.name,
+				height: pokemon.height,
+				weight: pokemon.weight,
+				abilities: pokemon.abilities,
+				hp: pokemon.hp,
+				attack: pokemon.attack,
+				defense: pokemon.defense,
+				special_attack: pokemon.special_attack,
+				special_defense: pokemon.special_defense,
+				speed: pokemon.speed,
+				image: pokemon.image,
+				region: pokemon.region,
+				types: pokemon.Types.map((type) => type.name).reverse(),
+				debility: pokemon.Types.reduce((acc, type) => {
+					return acc.concat(
+						type.debility.slice(1, type.debility.length - 1).split(','),
+					);
+				}, []),
+				createdInDb: pokemon.createdInDb,
+			};
+		});
+
+		return pokeApi;
 	} catch (error) {
 		return { error: 'Error when fetching pokemos from the api' };
 	}

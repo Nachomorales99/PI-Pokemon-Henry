@@ -1,7 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
 import { Landing, Home, Detail, Form, Error404 } from './Views/index';
 import { useDispatch } from 'react-redux';
-import { get_all_pokemons, get_all_types } from './Redux/Actions/actions';
+import {
+	get_all_pokemons,
+	get_all_types,
+	filters,
+} from './Redux/Actions/actions';
 import { useEffect } from 'react';
 
 const App = () => {
