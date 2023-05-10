@@ -31,7 +31,7 @@ let pokemonsById = async (id, source) => {
 					speed: idDb.speed,
 					image: idDb.image,
 					region: idDb.region,
-					types: idDb.Types.map((type) => type.name),
+					types: idDb.Types.map((type) => type.name).reverse(),
 					debility: idDb.Types.reduce((acc, type) => {
 						return acc.concat(
 							type.debility.slice(1, type.debility.length - 1).split(','),
@@ -66,7 +66,7 @@ let pokemonsById = async (id, source) => {
 					special_attack: idApi.special_attack,
 					special_defense: idApi.special_defense,
 					speed: idApi.speed,
-					types: idApi.Types.map((type) => type.name),
+					types: idApi.Types.map((type) => type.name).reverse(),
 					image: idApi.image,
 					region: idApi.region,
 					debility: idApi.Types.reduce((acc, type) => {

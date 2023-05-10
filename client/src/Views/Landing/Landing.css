@@ -21,14 +21,12 @@
 .welcome {
 	position: fixed;
 	top: 10%;
-	left: 50%;
 	transform: translateX(-50%);
 }
 
 .gif {
 	position: fixed;
 	top: 22%;
-	left: 50%;
 	transform: translateX(-50%);
 }
 

@@ -14,6 +14,7 @@ import validation from './Validations/Validations';
 import validationEmpty from './Validations/ValidationEmpty';
 import './Form.css';
 import ModalCreate from '../../Components/Modals/Modal_create';
+import { motion } from 'framer-motion';
 
 const Form = () => {
 	//HOOKS
@@ -71,6 +72,39 @@ const Form = () => {
 		dispatch(get_all_types());
 		// eslint-disable-next-line
 	}, []);
+
+	const container = {
+		hidden: {
+			y: '-100vh',
+		},
+		visible: {
+			y: 0,
+			transition: {
+				duration: 0.5,
+			},
+		},
+		exit: {
+			y: '200vh',
+			transition: {
+				ease: 'easeInOut',
+				duration: 0.5,
+			},
+		},
+	};
+
+	const form = {
+		hidden: {
+			x: '-100vw',
+		},
+		visible: {
+			x: 0,
+			transition: {
+				type: 'spring',
+				stiffness: 70,
+				delay: 0.4,
+			},
+		},
+	};
 
 	//FUNCTIONS
 	let handleSubmit = (event) => {
@@ -184,10 +218,21 @@ const Form = () => {
 
 	return (
 		<>
-			<div className="bg">
+			<motion.div
+				className="bg"
+				variants={container}
+				initial="hidden"
+				animate="visible"
+				exit="exit"
+			>
 				{show ? <ModalCreate /> : ''}
 				{!loading ? (
-					<div className="login-box">
+					<motion.div
+						className="login-box"
+						variants={form}
+						initial="hidden"
+						animate="visible"
+					>
 						<h2>Pokemon Lab</h2>
 						<form onSubmit={(event) => handleSubmit(event)}>
 							<div className="principalcolum">
@@ -410,7 +455,7 @@ const Form = () => {
 								</button>
 							</div>
 						</form>
-					</div>
+					</motion.div>
 				) : (
 					<div>
 						<img
@@ -421,7 +466,7 @@ const Form = () => {
 						<Loader />
 					</div>
 				)}
-			</div>
+			</motion.div>
 		</>
 	);
 };

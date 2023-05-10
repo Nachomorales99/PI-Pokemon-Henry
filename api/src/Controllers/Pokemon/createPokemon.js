@@ -15,6 +15,7 @@ let createPokemon = async (
 	special_defense,
 	abilities,
 ) => {
+	console.log(types);
 	try {
 		let findedPoke = await Pokemon.findOne({ where: { name: name } });
 		if (findedPoke) {
@@ -36,6 +37,7 @@ let createPokemon = async (
 				? image
 				: 'https://res.cloudinary.com/nacho-morales/image/upload/v1679777574/Pokemon%20App/Default_img_fjt3qd.png',
 			abilities: abilities,
+			region: 'database',
 		});
 
 		let postTypes = await Type.findAll({ where: { name: types } });
@@ -43,7 +45,8 @@ let createPokemon = async (
 
 		return 'Successfully created pokemon';
 	} catch (error) {
-		return 'Error creating pokemon';
+		console.log(error);
+		throw new Error('Error creating pokemon');
 	}
 };
 

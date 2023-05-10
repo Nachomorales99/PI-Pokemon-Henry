@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -6,9 +6,9 @@ import {
 	resetState,
 	show_modal,
 } from '../../Redux/Actions/actions';
-import Loader from '../../Components/Loader/Loader';
 import './Detail.css';
 import ModalUpdate from '../../Components/Modals/Modal_update';
+import { motion } from 'framer-motion';
 
 const Detail = () => {
 	//HOOKS
@@ -19,14 +19,9 @@ const Detail = () => {
 	let showModal = useSelector((state) => state.showModal);
 
 	//STATE
-	let [loading, setLoading] = useState(true);
 
 	//EFFECTS
 	useEffect(() => {
-		setTimeout(() => {
-			setLoading(false);
-		}, 700);
-
 		dispatch(get_pokemon_detail(id));
 		return () => {
 			dispatch(resetState());
@@ -77,6 +72,50 @@ const Detail = () => {
 		shadow: '#6d6565',
 	};
 
+	const image = {
+		hidden: {
+			x: '100vw',
+		},
+		visible: {
+			x: 0,
+			transition: {
+				type: 'spring',
+				stiffness: 60,
+				delay: 0.25,
+			},
+		},
+	};
+
+	const info = {
+		hidden: {
+			x: '-100vw',
+		},
+		visible: {
+			x: 0,
+			transition: {
+				type: 'spring',
+				stiffness: 70,
+				delay: 0.5,
+			},
+		},
+	};
+
+	const backButton = {
+		hidden: {
+			scale: 0,
+		},
+		visible: {
+			scale: 1,
+			transition: {
+				delay: 1,
+				duration: 0.2,
+			},
+		},
+		hover: {
+			scale: 1.1,
+		},
+	};
+
 	const appendTypes = (types) => {
 		return types?.map((item) => (
 			<span
@@ -119,15 +158,19 @@ const Detail = () => {
 			<div className="bs">
 				{showModal ? (
 					<ModalUpdate />
-				) : !loading ? (
+				) : (
 					<>
-						<button
+						<motion.button
 							className="custom-btn btn-12"
 							onClick={() => navigate('/home')}
+							variants={backButton}
+							initial="hidden"
+							animate="visible"
+							whileHover="hover"
 						>
 							<span>Click!</span>
 							<span>Back to home?</span>
-						</button>
+						</motion.button>
 						{isNaN(id) ? (
 							<button
 								className="custom-btn btn-12"
@@ -139,8 +182,17 @@ const Detail = () => {
 						) : (
 							''
 						)}
-						<section className="content-poke">
-							<article className="box1-poke">
+						<section
+							className={`content-poke ${
+								pokemon && pokemon.types && pokemon.types[0]
+							}`}
+						>
+							<motion.article
+								className="box1-poke"
+								variants={info}
+								initial="hidden"
+								animate="visible"
+							>
 								<div className="poke-name">
 									<h1 className="inter-bold name-poke">
 										{capitalizeFirstLetter(pokemon.name)}
@@ -254,16 +306,18 @@ const Detail = () => {
 										</div>
 									</div>
 								</div>
-							</article>
+							</motion.article>
 							<article className="box2-poke">
-								<img src={pokemon.image} alt={pokemon.name} />
+								<motion.img
+									src={pokemon.image}
+									alt={pokemon.name}
+									variants={image}
+									initial="hidden"
+									animate="visible"
+								/>
 							</article>
-						</section>{' '}
+						</section>
 					</>
-				) : (
-					<div className="loader">
-						<Loader />
-					</div>
 				)}
 			</div>
 		</>

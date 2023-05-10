@@ -12,6 +12,7 @@ import {
 	set_page,
 } from '../../Redux/Actions/actions';
 import ModalDelete from '../../Components/Modals/Modal_delete';
+import { motion } from 'framer-motion';
 
 const Home = () => {
 	//HOOKS
@@ -97,8 +98,20 @@ const Home = () => {
 		dispatch(setFilter({ order: event.target.value }));
 	};
 
+	const panel = {
+		hidden: {
+			y: '-50vh',
+		},
+		visible: {
+			y: 0,
+			transition: {
+				duration: 0.5,
+			},
+		},
+	};
+
 	return (
-		<>
+		<motion.div variants={panel} initial="hidden" animate="visible">
 			{showModal ? <ModalDelete /> : ''}
 			<Nav />
 			<div className="header">
@@ -197,14 +210,13 @@ const Home = () => {
 					currentPage={currentPage}
 				/>
 			)}
-
 			<div className="contain">
 				{(charge && !usePoke.length) || flag ? (
 					<div>
 						<Loader />
 					</div>
 				) : currentPokes.length ? (
-					currentPokes.map((pokemon, index) => {
+					currentPokes.map((pokemon) => {
 						return (
 							<Card
 								id={pokemon.id}
@@ -228,7 +240,7 @@ const Home = () => {
 					</div>
 				)}
 			</div>
-		</>
+		</motion.div>
 	);
 };
 
