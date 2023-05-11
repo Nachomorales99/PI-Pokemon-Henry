@@ -1,7 +1,6 @@
 const { Pokemon, Type } = require('../../db');
 
 let createPokemon = async (
-	id2,
 	name,
 	image,
 	hp,
@@ -15,7 +14,6 @@ let createPokemon = async (
 	special_defense,
 	abilities,
 ) => {
-	console.log(types);
 	try {
 		let findedPoke = await Pokemon.findOne({ where: { name: name } });
 		if (findedPoke) {
@@ -23,7 +21,6 @@ let createPokemon = async (
 		}
 
 		let newPokemon = await Pokemon.create({
-			id2: id2,
 			name: name,
 			hp: hp,
 			attack: attack,
@@ -45,7 +42,6 @@ let createPokemon = async (
 
 		return 'Successfully created pokemon';
 	} catch (error) {
-		console.log(error);
 		throw new Error('Error creating pokemon');
 	}
 };

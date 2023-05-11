@@ -9,7 +9,6 @@ import {
 	FILTERS,
 	SET_FILTERS,
 	ORDER,
-	RESET_ALLPOKEMONS,
 	SET_DELETE_POKEMON,
 	SHOW_MODAL,
 	MAYBE_ELIMINATE,
@@ -137,12 +136,6 @@ export let setName = (name) => {
 export let getName = () => {
 	return {
 		type: GET_NAME,
-	};
-};
-
-export let reset_allpokemons = () => {
-	return {
-		type: RESET_ALLPOKEMONS,
 	};
 };
 

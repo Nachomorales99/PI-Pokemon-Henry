@@ -1,5 +1,4 @@
 const { Pokemon, Type, Op } = require('../../db');
-const axios = require('axios');
 
 let pokemonsByName = async (name) => {
 	try {
@@ -17,7 +16,6 @@ let pokemonsByName = async (name) => {
 		if (nameDb) {
 			return {
 				id: nameDb.id,
-				id2: nameDb.id2,
 				name: nameDb.name,
 				height: nameDb.height,
 				weight: nameDb.weight,
@@ -36,32 +34,8 @@ let pokemonsByName = async (name) => {
 					);
 				}, []),
 				createdInDb: nameDb.createdInDb,
+				region: nameDb.region,
 			};
-		}
-
-		let nameApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
-
-		if (nameApi.data) {
-			let pokemon = nameApi.data;
-			let pokeName = {
-				name: name,
-				id: pokemon.id,
-				id2: pokemon.id,
-				height: pokemon.height,
-				weight: pokemon.weight,
-				abilities: pokemon.abilities.map((abl) => abl.ability.name),
-				hp: pokemon.stats[0].base_stat,
-				attack: pokemon.stats[1].base_stat,
-				defense: pokemon.stats[2].base_stat,
-				special_attack: pokemon.stats[3].base_stat,
-				special_defense: pokemon.stats[4].base_stat,
-				speed: pokemon.stats[5].base_stat,
-				types: pokemon.types.map((el) => el.type.name),
-				image: pokemon.sprites.other['official-artwork'].front_default,
-				createdInDb: false,
-			};
-
-			return pokeName;
 		}
 	} catch (error) {
 		return { error: 'Pokemon not found' };

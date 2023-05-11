@@ -41,7 +41,7 @@ const Home = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			setCharge(false);
-		}, 10000);
+		}, 3000);
 
 		setCurrentPokes(usePoke?.slice(range.firts, range.last));
 
@@ -49,7 +49,9 @@ const Home = () => {
 			firts: (currentPage - 1) * pokesPerPage,
 			last: currentPage * pokesPerPage,
 		});
-	}, [usePoke, range.firts, range.last, currentPage, pokesPerPage]);
+
+		// eslint-disable-next-line
+	}, [usePoke, range.firts, range.last, currentPage]);
 
 	//FUNCTIONS
 
@@ -220,7 +222,6 @@ const Home = () => {
 						return (
 							<Card
 								id={pokemon.id}
-								id2={pokemon.id2}
 								name={pokemon.name}
 								types={pokemon.types}
 								image={pokemon.image}

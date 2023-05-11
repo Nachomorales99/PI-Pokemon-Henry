@@ -41,10 +41,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
 	let { id } = req.params;
 
-	let source = isNaN(id) ? 'db' : 'api';
-
 	try {
-		let pokeId = await pokemonsById(id, source);
+		let pokeId = await pokemonsById(id);
 
 		if (pokeId.error) throw new Error(pokeId.error);
 
@@ -58,7 +56,6 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
 	let {
-		id2,
 		name,
 		image,
 		hp,
@@ -91,7 +88,6 @@ router.post('/', async (req, res) => {
 		}
 
 		let newPokemon = await createPokemon(
-			id2,
 			name,
 			image,
 			hp,

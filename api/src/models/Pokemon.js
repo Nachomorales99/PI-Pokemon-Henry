@@ -8,15 +8,9 @@ function pokemonModel(sequelize) {
 		'Pokemon',
 		{
 			id: {
-				type: DataTypes.UUID,
-				defaultValue: DataTypes.UUIDV4,
-				allowNull: false,
-				primaryKey: true,
-			},
-
-			id2: {
 				type: DataTypes.INTEGER,
-				allowNull: false,
+				primaryKey: true,
+				autoIncrement: true,
 			},
 
 			name: {

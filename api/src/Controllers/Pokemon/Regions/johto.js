@@ -1,4 +1,4 @@
-const { PokemonApi, Type } = require('../../../db');
+const { Pokemon, Type } = require('../../../db');
 const axios = require('axios');
 
 let getPokemonsOfJohto = async () => {
@@ -11,9 +11,7 @@ let getPokemonsOfJohto = async () => {
 	for (let pokemon of allPokemonOfJohto) {
 		let url = await axios.get(pokemon.url);
 
-		let poke = await PokemonApi.create({
-			id: url.data.id,
-			id2: url.data.id,
+		let poke = await Pokemon.create({
 			name: pokemon.name,
 			image: url.data.sprites.other['official-artwork'].front_default,
 			hp: url.data.stats[0].base_stat,

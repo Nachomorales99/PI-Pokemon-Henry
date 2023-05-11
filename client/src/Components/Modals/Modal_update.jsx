@@ -7,8 +7,6 @@ import {
 	get_new_detail,
 	new_pokemon_detail,
 	get_all_pokemons,
-	reset_allpokemons,
-	setFilter,
 } from '../../Redux/Actions/actions';
 import validation from '../../Views/Form/Validations/Validations';
 import validationEmpty from '../../Views/Form/Validations/ValidationEmpty';
@@ -113,9 +111,7 @@ const ModalUpdate = () => {
 				abilities: input.abilities,
 			};
 			dispatch(update_pokemon(update));
-			dispatch(reset_allpokemons());
 			dispatch(get_all_pokemons());
-			dispatch(setFilter({ types2: 'all', origin: 'all', order: 'ascendent' }));
 
 			setTimeout(() => {
 				dispatch(get_new_detail(input.id));

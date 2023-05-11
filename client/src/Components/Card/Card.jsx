@@ -54,7 +54,7 @@ const Card = (props) => {
 		<>
 			<div key={props.id} id="card" style={styleCard(themeColor)}>
 				<div className="container_buttoms">
-					{isNaN(props.id) ? (
+					{props.id > 1008 ? (
 						<div
 							className="destroy"
 							onClick={() => {
@@ -72,13 +72,13 @@ const Card = (props) => {
 					)}
 
 					<p className="number">
-						{props.id2 < 10
-							? `#000${props.id2}`
-							: props.id2 < 100
-							? `#00${props.id2}`
-							: props.id2 < 1000
-							? `#0${props.id2}`
-							: `#${props.id2}`}
+						{props.id < 10
+							? `#000${props.id}`
+							: props.id < 100
+							? `#00${props.id}`
+							: props.id < 1000
+							? `#0${props.id}`
+							: `#${props.id}`}
 					</p>
 				</div>
 

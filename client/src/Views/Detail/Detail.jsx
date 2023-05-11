@@ -18,8 +18,6 @@ const Detail = () => {
 	let pokemon = useSelector((state) => state.detail);
 	let showModal = useSelector((state) => state.showModal);
 
-	//STATE
-
 	//EFFECTS
 	useEffect(() => {
 		dispatch(get_pokemon_detail(id));
@@ -171,14 +169,18 @@ const Detail = () => {
 							<span>Click!</span>
 							<span>Back to home?</span>
 						</motion.button>
-						{isNaN(id) ? (
-							<button
+						{id > 1008 ? (
+							<motion.button
 								className="custom-btn btn-12"
 								onClick={() => dispatch(show_modal(true))}
+								variants={backButton}
+								initial="hidden"
+								animate="visible"
+								whileHover="hover"
 							>
 								<span>Click!</span>
 								<span>Edit Pokemon?</span>
-							</button>
+							</motion.button>
 						) : (
 							''
 						)}

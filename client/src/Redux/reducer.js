@@ -8,7 +8,6 @@ import {
 	FILTERS,
 	ORDER,
 	SET_FILTERS,
-	RESET_ALLPOKEMONS,
 	SET_DELETE_POKEMON,
 	SHOW_MODAL,
 	MAYBE_ELIMINATE,
@@ -104,8 +103,8 @@ let reducer = (state = initialState, action) => {
 			//ORDER
 			if (state.order === 'ascendent' || state.order === 'descendant') {
 				state.order === 'ascendent'
-					? ordered.sort((a, b) => a.id2 - b.id2)
-					: ordered.sort((a, b) => b.id2 - a.id2);
+					? ordered.sort((a, b) => a.id - b.id)
+					: ordered.sort((a, b) => b.id - a.id);
 			} else if (state.order === 'a_z' || state.order === 'z_a') {
 				state.order === 'a_z'
 					? ordered.sort((a, b) => a.name.localeCompare(b.name))
@@ -189,14 +188,6 @@ let reducer = (state = initialState, action) => {
 			return {
 				...state,
 				detail: {},
-			};
-
-		case RESET_ALLPOKEMONS:
-			return {
-				...state,
-				allPokemons: [],
-				pokemons: [],
-				filtered: [],
 			};
 
 		default:

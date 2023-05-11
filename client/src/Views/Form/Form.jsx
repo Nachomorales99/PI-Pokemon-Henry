@@ -6,7 +6,6 @@ import {
 	get_all_types,
 	create_pokemon,
 	get_all_pokemons,
-	reset_allpokemons,
 	setFilter,
 	show_modal,
 } from '../../Redux/Actions/actions';
@@ -70,6 +69,10 @@ const Form = () => {
 	//EFFECTS
 	useEffect(() => {
 		dispatch(get_all_types());
+
+		return () => {
+			dispatch(get_all_pokemons());
+		};
 		// eslint-disable-next-line
 	}, []);
 
@@ -131,7 +134,6 @@ const Form = () => {
 			input.types.length
 		) {
 			let pokePost = {
-				id2: 36 + Math.floor(Math.random() * 1000) + 1011,
 				name: input.name.toLowerCase(),
 				attack: Number(input.attack),
 				hp: Number(input.hp),
@@ -147,19 +149,19 @@ const Form = () => {
 			};
 
 			dispatch(create_pokemon(pokePost));
-			dispatch(reset_allpokemons());
-			dispatch(get_all_pokemons());
-			dispatch(setFilter({ types2: 'all', origin: 'all', order: 'ascendent' }));
+			dispatch(
+				setFilter({ types2: 'all', origin: 'database', order: 'ascendent' }),
+			);
 
 			setLoading(true);
 
 			setTimeout(() => {
 				setLoading(false);
-			}, 5000);
+			}, 3000);
 
 			setTimeout(() => {
 				dispatch(show_modal(true));
-			}, 5200);
+			}, 3200);
 
 			setInput({
 				name: '',
