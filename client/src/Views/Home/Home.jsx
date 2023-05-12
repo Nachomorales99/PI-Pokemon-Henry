@@ -168,6 +168,7 @@ const Home = () => {
 								handleFilterOrigin(event);
 							}}
 						>
+							<option value="all">All Regions</option>
 							<option value="kanto">Kanto</option>
 							<option value="johto">Johto</option>
 							<option value="hoenn">Hoenn</option>

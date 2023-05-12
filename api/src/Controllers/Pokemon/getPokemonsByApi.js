@@ -23,7 +23,7 @@ let getPokemonsByApi = async () => {
 
 		if (!pokeApi.length) {
 			Promise.all([
-				kantoRegion(),
+				await kantoRegion(),
 				johotoRegion(),
 				hoennRegion(),
 				sinnohRegion(),

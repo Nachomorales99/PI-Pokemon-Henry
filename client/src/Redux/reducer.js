@@ -22,7 +22,7 @@ const initialState = {
 	filtered: [],
 	detail: {},
 	types2: 'all',
-	origin: 'kanto',
+	origin: 'all',
 	order: 'ascendent',
 	name: '',
 	showModal: null,
@@ -89,7 +89,9 @@ let reducer = (state = initialState, action) => {
 			}
 
 			//ORIGIN
-			filtered = filtered.filter((el) => el.region === state.origin);
+			if (state.origin !== 'all') {
+				filtered = filtered.filter((el) => el.region === state.origin);
+			}
 
 			return {
 				...state,

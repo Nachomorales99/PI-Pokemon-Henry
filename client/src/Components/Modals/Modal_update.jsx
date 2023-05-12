@@ -492,7 +492,7 @@ const ModalUpdate = () => {
 					<motion.div variants={updateimg} initial="hidden" animate="visible">
 						<img
 							className="msg"
-							src="https://res.cloudinary.com/nacho-morales/image/upload/v1680535628/update_pokemon_fhr9do.png"
+							src="https://res.cloudinary.com/nacho-morales/image/upload/v1683904582/Pokemon%20App/Updating_pokemon_jjtbzk.png"
 							alt=""
 						/>
 					</motion.div>

@@ -9,6 +9,7 @@
 .paginated {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	gap: 60px;
 	margin: 0;
 	padding: 1rem;

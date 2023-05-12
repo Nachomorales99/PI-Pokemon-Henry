@@ -12,7 +12,7 @@ const useToast = () => {
 			style: {
 				borderRadius: '15px',
 				background: 'rgba(173, 142, 112, 1)',
-				color: 'black',
+				color: '#fff',
 			},
 		});
 	};
@@ -24,7 +24,7 @@ const useToast = () => {
 			style: {
 				borderRadius: '15px',
 				background: 'rgba(173, 142, 112, 1)',
-				color: 'black',
+				color: '#fff',
 			},
 		});
 	};
