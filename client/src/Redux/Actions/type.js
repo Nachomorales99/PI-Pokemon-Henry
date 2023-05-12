@@ -12,3 +12,5 @@ export const SHOW_MODAL = 'SHOW_MODAL';
 export const SET_PAGE = 'SET_PAGE';
 export const SET_UPDATE_POKEMON = 'SET_UPDATE_POKEMON';
 export const UPDATE_POKEMON = 'UPDATE_POKEMON';
+export const GET_BY_NAME = 'GET_BY_NAME';
+export const SET_BY_NAME = 'SET_BY_NAME';

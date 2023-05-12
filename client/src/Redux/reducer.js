@@ -13,6 +13,8 @@ import {
 	SET_PAGE,
 	SET_UPDATE_POKEMON,
 	UPDATE_POKEMON,
+	GET_BY_NAME,
+	SET_BY_NAME,
 } from './Actions/type';
 
 const initialState = {
@@ -29,6 +31,7 @@ const initialState = {
 	maybe_delete: null,
 	currentPage: 1,
 	newDetail: {},
+	pokemonbyname: null,
 };
 
 let reducer = (state = initialState, action) => {
@@ -39,6 +42,18 @@ let reducer = (state = initialState, action) => {
 				allPokemons: action.payload,
 				pokemons: action.payload,
 				filtered: action.payload,
+			};
+
+		case GET_BY_NAME:
+			return {
+				...state,
+				pokemonbyname: action.payload,
+			};
+
+		case SET_BY_NAME:
+			return {
+				...state,
+				pokemonbyname: null,
 			};
 
 		case GET_ALL_TYPES:
@@ -125,7 +140,8 @@ let reducer = (state = initialState, action) => {
 			};
 
 		case SET_NAME:
-			console.log(state.name);
+			if (state.name === '') {
+			}
 			return {
 				...state,
 				name: action.payload.name,

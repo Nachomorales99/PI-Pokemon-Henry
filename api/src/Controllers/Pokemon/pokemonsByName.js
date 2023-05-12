@@ -13,7 +13,7 @@ let pokemonsByName = async (name) => {
 			},
 		});
 
-		if (nameDb) {
+		if (nameDb !== undefined) {
 			return {
 				id: nameDb.id,
 				name: nameDb.name,

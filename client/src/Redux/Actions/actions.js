@@ -14,9 +14,11 @@ import {
 	SET_PAGE,
 	SET_UPDATE_POKEMON,
 	UPDATE_POKEMON,
+	SET_BY_NAME,
 } from './type';
 
 const URL = 'http://localhost:3001';
+const URL2 = 'http://localhost:3000';
 
 export let get_all_pokemons = () => {
 	return async function (dispatch) {
@@ -30,6 +32,24 @@ export let get_all_pokemons = () => {
 		dispatch({
 			type: FILTERS,
 		});
+	};
+};
+
+export let get_by_name = (name) => {
+	return async function () {
+		let pokemons = await axios.get(`${URL}/pokemons?name=${name}`);
+
+		if (!isNaN(pokemons.data.id)) {
+			window.location.href = `${URL2}/detail/${pokemons.data.id}`;
+		} else {
+			window.location.href = `${URL2}/notfound`;
+		}
+	};
+};
+
+export let set_by_name = () => {
+	return {
+		type: SET_BY_NAME,
 	};
 };
 

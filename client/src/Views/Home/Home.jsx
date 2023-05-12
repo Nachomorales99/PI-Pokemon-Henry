@@ -228,14 +228,12 @@ const Home = () => {
 					})
 				) : (
 					<div className="notfound">
-						<h2 className="notfoundTitle">Ups! Pokémon not found</h2>
+						<h2 className="notfoundTitle">Ups! Pokémon not found here</h2>
 						<img
 							src="https://res.cloudinary.com/nacho-morales/image/upload/v1679760646/Pokemon%20App/Pikachu_no_found_ofvyzw.png"
 							alt=""
 						/>
-						<h2 className="notfoundTitle">
-							Try creating it on "Create Pokemon"
-						</h2>
+						<h2 className="notfoundTitle">Try clicking the searchbar</h2>
 					</div>
 				)}
 			</div>

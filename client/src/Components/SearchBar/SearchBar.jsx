@@ -1,6 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setName, getName, set_page } from '../../Redux/Actions/actions';
+import {
+	setName,
+	getName,
+	set_page,
+	get_by_name,
+} from '../../Redux/Actions/actions';
 import './SearchBar.css';
 
 const SearchBar = () => {
@@ -18,6 +23,10 @@ const SearchBar = () => {
 		dispatch(set_page(1));
 	};
 
+	let handlerSearch = async () => {
+		dispatch(get_by_name(name));
+	};
+
 	return (
 		<>
 			<div className="container">
@@ -33,6 +42,14 @@ const SearchBar = () => {
 					id="searchBar"
 					className="searchbar"
 				/>
+				<button
+					className="lupa"
+					onClick={() => {
+						handlerSearch();
+					}}
+				>
+					🔍
+				</button>
 			</div>
 		</>
 	);
