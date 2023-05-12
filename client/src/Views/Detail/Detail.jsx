@@ -114,6 +114,18 @@ const Detail = () => {
 		},
 	};
 
+	const container = {
+		hidden: {
+			y: '-100vh',
+		},
+		visible: {
+			y: 0,
+			transition: {
+				duration: 0.5,
+			},
+		},
+	};
+
 	const appendTypes = (types) => {
 		return types?.map((item) => (
 			<span
@@ -184,10 +196,15 @@ const Detail = () => {
 						) : (
 							''
 						)}
-						<section
+
+						<motion.section
 							className={`content-poke ${
 								pokemon && pokemon.types && pokemon.types[0]
 							}`}
+							variants={container}
+							initial="hidden"
+							animate="visible"
+							exit="exit"
 						>
 							<motion.article
 								className="box1-poke"
@@ -318,7 +335,7 @@ const Detail = () => {
 									animate="visible"
 								/>
 							</article>
-						</section>
+						</motion.section>
 					</>
 				)}
 			</div>

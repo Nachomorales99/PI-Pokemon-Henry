@@ -2,7 +2,11 @@ import React from 'react';
 import './Card.css';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { show_modal, maybe_eliminate } from '../../Redux/Actions/actions';
+import {
+	delete_pokemon,
+	set_Delete_Pokemon,
+} from '../../Redux/Actions/actions';
+import Swal from 'sweetalert2';
 
 const Card = (props) => {
 	let dispatch = useDispatch();
@@ -46,8 +50,21 @@ const Card = (props) => {
 	};
 
 	let handlerDelete = (id) => {
-		dispatch(show_modal(true));
-		dispatch(maybe_eliminate(id));
+		Swal.fire({
+			title: 'Sure you want to delete this pokemon?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: 'rgba(36, 55, 99, 1)',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				dispatch(set_Delete_Pokemon(id));
+				dispatch(delete_pokemon(id));
+				Swal.fire('Deleted!', 'Your pokemon has been deleted.', 'success');
+			}
+		});
 	};
 
 	return (

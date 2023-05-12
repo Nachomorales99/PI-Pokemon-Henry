@@ -11,7 +11,6 @@ import {
 	ordered,
 	set_page,
 } from '../../Redux/Actions/actions';
-import ModalDelete from '../../Components/Modals/Modal_delete';
 import { motion } from 'framer-motion';
 
 const Home = () => {
@@ -24,7 +23,6 @@ const Home = () => {
 	let allTypes = useSelector((state) => state.types).filter(
 		(el) => el.name !== 'unknown',
 	);
-	let showModal = useSelector((state) => state.showModal);
 	let currentPage = useSelector((state) => state.currentPage);
 
 	//STATES
@@ -114,7 +112,6 @@ const Home = () => {
 
 	return (
 		<motion.div variants={panel} initial="hidden" animate="visible">
-			{showModal ? <ModalDelete /> : ''}
 			<Nav />
 			<div className="header">
 				<div className="containButton">

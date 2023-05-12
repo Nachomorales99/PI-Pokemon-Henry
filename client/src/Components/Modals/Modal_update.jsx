@@ -10,7 +10,9 @@ import {
 } from '../../Redux/Actions/actions';
 import validation from '../../Views/Form/Validations/Validations';
 import validationEmpty from '../../Views/Form/Validations/ValidationEmpty';
-import Loader from '../../Components/Loader/Loader';
+import LoaderDos from '../../Components/Loader/LoaderDos';
+import { motion } from 'framer-motion';
+import useToast from '../../utils/hooks/useToast';
 
 const ModalUpdate = () => {
 	//HOOKS
@@ -125,15 +127,12 @@ const ModalUpdate = () => {
 
 			setTimeout(() => {
 				setLoading(false);
-			}, 5000);
-
-			setTimeout(() => {
-				alert('Pokemon successfully updated!');
-			}, 5200);
+			}, 3000);
 
 			setTimeout(() => {
 				dispatch(show_modal(null));
-			}, 5300);
+				handlerSuccess();
+			}, 3000);
 		} else if (
 			!input.name ||
 			!input.hp ||
@@ -148,7 +147,7 @@ const ModalUpdate = () => {
 		) {
 			setErrors(validationEmpty({ ...input }));
 		} else {
-			alert('No data has been modified!');
+			handlerError();
 		}
 	};
 
@@ -190,13 +189,87 @@ const ModalUpdate = () => {
 
 	let handleCancel = () => {
 		dispatch(show_modal(null));
+		handlerCancel();
+	};
+
+	const { success, error } = useToast();
+
+	const handlerSuccess = () => {
+		success('Pokemon successfully updated', { duration: 2000 });
+	};
+
+	const handlerError = () => {
+		error('No data has been modified!', { duration: 2000 });
+	};
+
+	const handlerCancel = () => {
+		error('Update cancelled', { duration: 2000 });
+	};
+
+	const container = {
+		hidden: {
+			y: '-100vh',
+		},
+		visible: {
+			y: 0,
+			transition: {
+				duration: 0.5,
+			},
+		},
+		exit: {
+			y: '200vh',
+			transition: {
+				ease: 'easeInOut',
+				duration: 0.5,
+			},
+		},
+	};
+
+	const form = {
+		hidden: {
+			x: '-100vw',
+		},
+		visible: {
+			x: 0,
+			transition: {
+				type: 'spring',
+				stiffness: 70,
+				delay: 0.4,
+			},
+		},
+	};
+
+	const updateimg = {
+		hidden: {
+			y: '-100vh',
+		},
+		visible: {
+			y: -200,
+			x: 50,
+			transition: {
+				type: 'spring',
+				stiffness: 70,
+				delay: 0.3,
+			},
+		},
 	};
 
 	return (
 		<>
 			{!loading ? (
-				<div className="modal-container-update">
-					<div className="modal-update">
+				<motion.div
+					className="modal-container-update"
+					variants={container}
+					initial="hidden"
+					animate="visible"
+					exit="exit"
+				>
+					<motion.div
+						className="modal-update"
+						variants={form}
+						initial="hidden"
+						animate="visible"
+					>
 						<div className="login-box">
 							<h2>Pokemon Lab</h2>
 							<form onSubmit={(event) => handleSubmit(event)}>
@@ -412,16 +485,18 @@ const ModalUpdate = () => {
 								</div>
 							</form>
 						</div>
-					</div>
-				</div>
+					</motion.div>
+				</motion.div>
 			) : (
 				<div className="modal-container-update">
-					<img
-						className="msg"
-						src="https://res.cloudinary.com/nacho-morales/image/upload/v1680535628/update_pokemon_fhr9do.png"
-						alt=""
-					/>
-					<Loader />
+					<motion.div variants={updateimg} initial="hidden" animate="visible">
+						<img
+							className="msg"
+							src="https://res.cloudinary.com/nacho-morales/image/upload/v1680535628/update_pokemon_fhr9do.png"
+							alt=""
+						/>
+					</motion.div>
+					<LoaderDos />
 				</div>
 			)}
 		</>

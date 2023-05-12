@@ -3,7 +3,7 @@ import './Loader.css';
 
 export default function Loader() {
 	return (
-		<div className="wrapper">
+		<div className="wrapper1">
 			<div className="pokeball"></div>
 		</div>
 	);

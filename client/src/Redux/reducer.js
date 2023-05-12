@@ -10,7 +10,6 @@ import {
 	SET_FILTERS,
 	SET_DELETE_POKEMON,
 	SHOW_MODAL,
-	MAYBE_ELIMINATE,
 	SET_PAGE,
 	SET_UPDATE_POKEMON,
 	UPDATE_POKEMON,
@@ -174,9 +173,6 @@ let reducer = (state = initialState, action) => {
 				...state,
 				showModal: action.payload,
 			};
-
-		case MAYBE_ELIMINATE:
-			return { ...state, maybe_delete: action.payload };
 
 		case SET_PAGE:
 			return {

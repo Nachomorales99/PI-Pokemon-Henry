@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Loader from '../../Components/Loader/Loader';
+import LoaderDos from '../../Components/Loader/LoaderDos';
 import {
 	get_all_types,
 	create_pokemon,
 	get_all_pokemons,
-	setFilter,
-	show_modal,
 } from '../../Redux/Actions/actions';
 import validation from './Validations/Validations';
 import validationEmpty from './Validations/ValidationEmpty';
 import './Form.css';
-import ModalCreate from '../../Components/Modals/Modal_create';
 import { motion } from 'framer-motion';
+import useToast from '../../utils/hooks/useToast';
 
 const Form = () => {
 	//HOOKS
@@ -23,7 +21,6 @@ const Form = () => {
 	);
 	let pokemons = useSelector((state) => state.pokemons);
 	let navigate = useNavigate();
-	let show = useSelector((state) => state.showModal);
 
 	//COLORS
 	const TypeColor = {
@@ -86,13 +83,6 @@ const Form = () => {
 				duration: 0.5,
 			},
 		},
-		exit: {
-			y: '200vh',
-			transition: {
-				ease: 'easeInOut',
-				duration: 0.5,
-			},
-		},
 	};
 
 	const form = {
@@ -105,6 +95,21 @@ const Form = () => {
 				type: 'spring',
 				stiffness: 70,
 				delay: 0.4,
+			},
+		},
+	};
+
+	const updateimg = {
+		hidden: {
+			y: '-100vh',
+		},
+		visible: {
+			y: -200,
+			x: 50,
+			transition: {
+				type: 'spring',
+				stiffness: 70,
+				delay: 0.3,
 			},
 		},
 	};
@@ -149,9 +154,6 @@ const Form = () => {
 			};
 
 			dispatch(create_pokemon(pokePost));
-			dispatch(
-				setFilter({ types2: 'all', origin: 'database', order: 'ascendent' }),
-			);
 
 			setLoading(true);
 
@@ -160,7 +162,7 @@ const Form = () => {
 			}, 3000);
 
 			setTimeout(() => {
-				dispatch(show_modal(true));
+				handlerNotify();
 			}, 3200);
 
 			setInput({
@@ -218,6 +220,12 @@ const Form = () => {
 		setErrors(validation({ ...input, types: [...input.types] }));
 	};
 
+	const { success } = useToast();
+
+	const handlerNotify = () => {
+		success('Pokemon successfully created', { duration: 2000 });
+	};
+
 	return (
 		<>
 			<motion.div
@@ -227,7 +235,6 @@ const Form = () => {
 				animate="visible"
 				exit="exit"
 			>
-				{show ? <ModalCreate /> : ''}
 				{!loading ? (
 					<motion.div
 						className="login-box"
@@ -459,14 +466,18 @@ const Form = () => {
 						</form>
 					</motion.div>
 				) : (
-					<div>
-						<img
+					<>
+						<motion.img
+							variants={updateimg}
+							initial="hidden"
+							animate="visible"
 							className="msg"
 							src="https://res.cloudinary.com/nacho-morales/image/upload/v1679952058/Pokemon%20App/Form_b0pbr2.png"
 							alt=""
 						/>
-						<Loader />
-					</div>
+
+						<LoaderDos />
+					</>
 				)}
 			</motion.div>
 		</>

@@ -9,7 +9,6 @@ export const SET_FILTERS = 'SET_FILTERS';
 export const ORDER = 'ORDER';
 export const SET_DELETE_POKEMON = 'SET_DELETE_POKEMON';
 export const SHOW_MODAL = 'SHOW_MODAL';
-export const MAYBE_ELIMINATE = 'MAYBE_ELIMINATE';
 export const SET_PAGE = 'SET_PAGE';
 export const SET_UPDATE_POKEMON = 'SET_UPDATE_POKEMON';
 export const UPDATE_POKEMON = 'UPDATE_POKEMON';

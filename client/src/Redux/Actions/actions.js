@@ -11,7 +11,6 @@ import {
 	ORDER,
 	SET_DELETE_POKEMON,
 	SHOW_MODAL,
-	MAYBE_ELIMINATE,
 	SET_PAGE,
 	SET_UPDATE_POKEMON,
 	UPDATE_POKEMON,
@@ -143,13 +142,6 @@ export let show_modal = (show) => {
 	return {
 		type: SHOW_MODAL,
 		payload: show,
-	};
-};
-
-export let maybe_eliminate = (id) => {
-	return {
-		type: MAYBE_ELIMINATE,
-		payload: id,
 	};
 };
 
