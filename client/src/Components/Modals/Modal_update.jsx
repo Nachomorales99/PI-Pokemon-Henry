@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './Modal_update.css';
 import {
@@ -22,6 +22,13 @@ const ModalUpdate = () => {
 	);
 	let pokemons = useSelector((state) => state.pokemons);
 	let pokemonDetail = useSelector((state) => state.detail);
+
+	useEffect(() => {
+		return () => {
+			dispatch(get_all_pokemons());
+		};
+		// eslint-disable-next-line
+	}, []);
 
 	//COLORS
 	const TypeColor = {
@@ -95,7 +102,8 @@ const ModalUpdate = () => {
 				Number(input.weight) !== pokemonDetail.weight ||
 				input.types !== pokemonDetail.types ||
 				Number(input.special_attack) !== pokemonDetail.special_attack ||
-				Number(input.special_defense) !== pokemonDetail.special_defense)
+				Number(input.special_defense) !== pokemonDetail.special_defense ||
+				input.image !== pokemonDetail.image)
 		) {
 			let update = {
 				id: input.id,
