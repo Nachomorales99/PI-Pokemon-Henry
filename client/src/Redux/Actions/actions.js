@@ -17,8 +17,11 @@ import {
 	SET_BY_NAME,
 } from './type';
 
-const URL = 'http://localhost:3001';
-const URL2 = 'http://localhost:3000';
+// const URL = 'http://localhost:3001'; ////LOCAL
+const URL = 'http://localhost:3001'; //DEPLOY
+
+// const URL2 = 'http://localhost:3000'; ////LOCAL
+const URL2 = 'https://pokemon-henry.vercel.app'; //DEPLOY
 
 export let get_all_pokemons = () => {
 	return async function (dispatch) {

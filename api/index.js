@@ -21,11 +21,13 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const pokemonsType = require('./src/Controllers/Type/pokemonsType');
 const allPokemons = require('./src/Controllers/Pokemon/getPokemonsByApi');
+require('dotenv').config();
+const PORT = process.env;
 
 // Syncing all the models at once.
 conn.sync({ force: false }).then(async () => {
 	Promise.all([await pokemonsType(), allPokemons()]);
-	server.listen(3001, () => {
-		console.log('%s listening at 3001'); // eslint-disable-line no-console
+	server.listen(PORT, () => {
+		console.log('%s listening at', process.env.PORT); // eslint-disable-line no-console
 	});
 });
