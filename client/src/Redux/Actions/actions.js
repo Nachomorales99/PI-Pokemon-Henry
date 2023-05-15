@@ -18,7 +18,7 @@ import {
 } from './type';
 
 // const URL = 'http://localhost:3001'; ////LOCAL
-const URL = 'http://localhost:3001'; //DEPLOY
+const URL = 'https://pi-pokemon-henry.up.railway.app'; //DEPLOY
 
 // const URL2 = 'http://localhost:3000'; ////LOCAL
 const URL2 = 'https://pokemon-henry.vercel.app'; //DEPLOY
