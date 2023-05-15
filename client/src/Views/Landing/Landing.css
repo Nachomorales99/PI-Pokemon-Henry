@@ -13,32 +13,31 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-	height: 100vh;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
+	height: 100vh;
+	width: 100vw;
 }
 
 .welcome {
-	position: fixed;
-	top: 10%;
-	transform: translateX(-50%);
+	margin-bottom: 20px;
+	margin-top: 20px;
 }
 
 .gif {
-	position: fixed;
-	top: 22%;
-	transform: translateX(-50%);
+	margin-bottom: 20px;
+	margin-top: 20px;
 }
 
 .gif img {
 	height: 200px;
 	width: 200px;
 }
-
 .start {
-	top: 30%;
-
+	margin-bottom: 20px;
+	margin-top: 20px;
 	border-radius: 99rem;
+	border-color: none;
 	background: linear-gradient(
 		135deg,
 		rgba(36, 55, 99, 1) 25%,
@@ -49,6 +48,7 @@
 }
 
 .start:hover {
+	border-color: none;
 	background: linear-gradient(
 		135deg,
 		rgba(173, 142, 112, 1) 10%,
@@ -59,10 +59,23 @@
 }
 
 .img_landing img {
-	margin-top: 5rem;
-	border-radius: 1rem;
-	position: fixed;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%);
+	width: 100%;
+	height: auto;
+}
+
+@media (max-width: 768px) {
+	.gif,
+	.start,
+	.welcome {
+		width: auto;
+		margin-bottom: 0;
+	}
+	.welcome img {
+		height: 200px;
+		width: 700px;
+	}
+	.img_landing {
+		width: 500px;
+		height: auto;
+	}
 }
